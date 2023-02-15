@@ -18,12 +18,12 @@ def waiting_room():
                 print(f"player {player} joined the game")
             
             #starts game after 3 players join, (always as the contrario), change later for a command
-            if len(ready_lobby > 3):
+            if (len(ready_lobby) > 3):
                 assign_roles(ready_lobby)
             else:
-                print(f"Waiting for {len - 3} more players")
+                print(f"Waiting for {3 - len(ready_lobby)} more players")
             
 
-def assign_roles(player_list):
+""" def assign_roles(player_list):
     for phone_number in player_list:
-        print('temp')
+        print('temp') """
