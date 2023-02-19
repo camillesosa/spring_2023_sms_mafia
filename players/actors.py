@@ -23,7 +23,7 @@ class MafiaGame:
             print(f"{player.name} is a {player.role}")
 
 players = [""]
-players.append(Actor.name)
+#players.append(Actor.name)
 #game = MafiaGame(players)
 #game.assign_roles()
 #game.show_roles()
