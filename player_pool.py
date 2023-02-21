@@ -31,7 +31,7 @@ def debug(characters, Villain):
     print('Chartacters Debugger:')
     print(f'The Villain is:{Villain.getName()}')
     for x in characters:
-        print(f'NPCs:{x.getName()} ____ Weapon:{x.getName()} _____ Guilty:{x.getGuilty()}')
+        print(f'NPCs:{x.getName()} ____ Weapon:{x.getWeapon()} _____ Guilty:{x.getGuilty()}')
     
     
 def assignWeapon(characters):
