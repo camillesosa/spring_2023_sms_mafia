@@ -21,7 +21,6 @@ def createPlayers():
     Villain = random.choice(characters)
     Villain.setGuilty(True)
     
-    
     debug(characters, Villain)
     
     return characters, Villain
@@ -44,12 +43,3 @@ def randomizeGun():
     Weapons.remove(temp)
     return temp
             
-"""
-tengo lista de gente..
-las personas no pueden tener la misma pistola
-tiene que ser generada random
-
-haces loop
-genera una pistola, dasela.. si la persona ya tiene esa pistola, dale otra
-
-"""
