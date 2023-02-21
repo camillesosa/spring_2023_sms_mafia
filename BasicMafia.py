@@ -1,4 +1,4 @@
-state = 0
+state = 1
 while (state != 4):
     if (state == 1):
         # welcome message
@@ -31,8 +31,9 @@ while (state != 4):
             # fix this: recognizing text to pull out specific input
             # if(text[0-13] == 'The murderer is '):
             # take nickname out of input
-            maybeMafia = input('You think the mafia is... ')
+            maybeMurderer = input('You think the murderer is... ')
             voted = "T"
+            
         state = state + 1
 
         
@@ -40,9 +41,20 @@ while (state != 4):
        if (maybeMurder != murderer):
             print("Oh no! ", maybeMurderer, " was not the murderer!")
             # look up nickname in citizen array, delete entry
+            index = 0
+            while (index < len(citizenArray)):
+                if (citizenArray[index] == killed):
+                citizenArray.remove(killed)
+                index = len(citizenArray)
+            else:
+                index = index + 1
             if (len(suspects) > 1):
                 # move on to next round
                 print('Looks like the murderer is still out there... Hopefully there are no more attacks...')
+                
+                #pick new murder victim randomly
+                #ran = random number [1, len(suspects)]
+                #killed = suspects[ran]
                 state = 2
             if (len(suspects < 2):
                 # mafia wins, go to end state
@@ -53,16 +65,6 @@ while (state != 4):
             print("Excellent job Detective! ", murderer, " was the murderer!  Congrats, you win!")
             # win, go to end state
             state = 4
-
-        # look up nickname in citizen array, delete entry
-        index = 0
-        while (index < len(citizenArray)):
-            if (citizenArray[index] == killed):
-                citizenArray.remove(killed)
-                index = len(citizenArray)
-            else:
-                index = index + 1
-
 
 
     if (state == 4):
