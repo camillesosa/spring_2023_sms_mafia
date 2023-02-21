@@ -1,0 +1,27 @@
+{
+    "characters": [{
+            "name": "Terminator",
+            "age": 35
+        },
+        {
+            "name": "Daenerys Targaryen",
+            "age": 26
+        },
+        {
+            "name": "Solid snake",
+            "age": 46
+        },
+        {
+            "name": "Harry Potter",
+            "age": 56
+        },
+        {
+            "name": "Ash from Evil Dead",
+            "age": 78
+        }
+    ],
+
+    "weapon_list": ["Handgun", "Knife", "Shotgun", "Katana", "Burrito", "Poison"],
+
+    "room": ["Kitchen", "Bedroom", "Porch", "Bathroom", "Livingroom"]
+}
