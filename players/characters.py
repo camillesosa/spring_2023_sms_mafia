@@ -13,9 +13,6 @@ class Player:
     def get_name(self):
         return self.name
     
-    def set_name(self, name):
-        self.name = name
-    
     def get_phone(self):
         return self.phone
 
