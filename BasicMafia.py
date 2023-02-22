@@ -9,7 +9,7 @@ class BasicMafia:
   def testFunc(self):
     if (self.state == 1):
       # welcome message
-      name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
+      # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
       logger.debug('Thank you Detective', name,
             ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
       # suspect names
