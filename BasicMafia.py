@@ -1,24 +1,31 @@
 import random
 
-state = 1
-while (state != 4):
-  if (state == 1):
-    # welcome message
-    name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
-    print('Thank you Detective', name, ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
-    #suspect names
-    print('Camella, Camille, Francesca, Luis, and Victor.\n')
-    print('These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.')
-    #randomly assign one suspect to be the murder
-    
-    #For testing
-    #murderer = 'Camille'
-    killed = 'Steve'
-    suspects = ['Luis', 'Francesca', 'Camella', 'Camille', 'Victor']
-    murderer = suspects[random.randint(0, 4)]
-    # lose if array size < 2
-    rounds = 1
-    state = state + 1
+from tools.logging import logger
+
+class BasicMafia:
+  def __init__(self,state):
+    self.state = state
+
+  def testFunc(self):
+    if (self.state == 1):
+      # welcome message
+      name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
+      logger.debug('Thank you Detective', name,
+            ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
+      # suspect names
+      logger.debug('Camella, Camille, Francesca, Luis, and Victor.\n')
+      logger.debug(
+        'These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.')
+      # randomly assign one suspect to be the murder
+
+      # For testing
+      # murderer = 'Camille'
+      killed = 'Steve'
+      suspects = ['Luis', 'Francesca', 'Camella', 'Camille', 'Victor']
+      murderer = suspects[random.randint(0, 4)]
+      # lose if array size < 2
+      rounds = 1
+      state = self.state + 1
 
         
   if (state == 2):
