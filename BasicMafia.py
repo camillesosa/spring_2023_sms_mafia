@@ -1,4 +1,5 @@
 import random
+import 
 
 from tools.logging import logger
 
@@ -13,6 +14,7 @@ class BasicMafia:
       # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
       logger.debug('Thank you Detective', name,
             ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
+      handle_welcome()
       # suspect names
       logger.debug('Camella, Camille, Francesca, Luis, and Victor.\n')
       logger.debug(
