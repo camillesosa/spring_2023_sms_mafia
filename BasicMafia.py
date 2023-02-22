@@ -26,6 +26,7 @@ class BasicMafia:
       # welcome message
       PlayerName = 'Cam'
       # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
+      fn = getattr(__import__('open_calls.'+proc_name), proc_name)
       resp = fn.handle_welcome()
       #name = input after handle_welcome
       #logger.debug('Thank you Detective', name, ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
