@@ -77,7 +77,7 @@ def exec_proc(proc_name):
         fn = getattr(__import__('open_calls.'+proc_name), proc_name)
         resp = fn.handle_welcome()
         name = resp.json()
-        logger.debug(name['Body'])
+        logger.debug(name)
         test = BasicMafia(1);
         test.testFunc();
     except Exception as err:
