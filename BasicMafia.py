@@ -1,17 +1,21 @@
+import random
+
 state = 1
 while (state != 4):
   if (state == 1):
     # welcome message
     name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
-    print('Thank you Detective', name, ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals.')
+    print('Thank you Detective', name, ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
     #suspect names
+    print('Camella, Camille, Francesca, Luis, and Victor.\n')
     print('These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.')
     #randomly assign one suspect to be the murder
     
     #For testing
-    murderer = 'Camille'
+    #murderer = 'Camille'
     killed = 'Steve'
     suspects = ['Luis', 'Francesca', 'Camella', 'Camille', 'Victor']
+    murderer = suspects[random.randint(0, 4)]
     # lose if array size < 2
     rounds = 1
     state = state + 1
@@ -60,16 +64,16 @@ while (state != 4):
         state = 2
       if (len(suspects) < 2):
         # mafia wins, go to end state
-        print('Oh no! You failed to find the murderer in time :(')
+        print('Oh no! You failed to find the murderer in time :(\n The murderer was actually', murderer, ':(')
         state = 4
 
     if (maybeMurderer == murderer):
       print("Excellent job Detective!", murderer, "was the murderer!  Congrats, you win!")
       # win, go to end state
       if (rounds > 1):
-        print('It took you', rounds, 'rounds to find the killer, and you saved', len(suspects), 'people.\n')
+        print('It took you', rounds, 'rounds to find the killer, and you saved', len(suspects)-1, 'people.\n')
       else:
-        print('Wow! It only took you 1 round to find the killer, and you saved', len(suspects), 'people!\n')
+        print('Wow! It only took you 1 round to find the killer, and you saved', len(suspects)-1, 'people!\n')
       state = 4
 
 
