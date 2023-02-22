@@ -28,7 +28,7 @@ class BasicMafia:
       # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
       resp = fn.handle_welcome()
       #name = input after handle_welcome
-      logger.debug('Thank you Detective', name, ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
+      #logger.debug('Thank you Detective', name, ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
       #maybe pass input from handle_welcome into handle_gameRules for name
       resp = fn.handle_gameRules()
       # suspect names
