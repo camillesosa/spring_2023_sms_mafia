@@ -32,3 +32,14 @@ def handle_request():
 		to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
+
+def handle_welcome():
+	logger.debug(request.form)
+
+	message = g.sms_client.messages.create(
+		body='Welcome Detective! Do you mind confirming your name before I go over the details of the case?',
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
+    	#print(request.form['Body'])
+	return json_response( status = "ok" )
+
