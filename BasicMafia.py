@@ -24,7 +24,7 @@ class BasicMafia:
   def testFunc(self):
     if (self.state == 1):
       # welcome message
-      name = 'Cam'
+      str PlayerName = 'Cam'
       # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
       resp = fn.handle_welcome()
       #name = input after handle_welcome
