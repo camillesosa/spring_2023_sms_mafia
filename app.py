@@ -75,7 +75,7 @@ def exec_proc(proc_name):
     resp = ""
     try:
         fn = getattr(__import__('open_calls.'+proc_name), proc_name)
-        resp = fn.handle_request()
+        resp = fn.handle_welcome()
         test = BasicMafia(1);
         test.testFunc();
     except Exception as err:
