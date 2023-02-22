@@ -75,7 +75,7 @@ def exec_proc(proc_name):
     resp = ""
     try:
         fn = getattr(__import__('open_calls.'+proc_name), proc_name)
-        resp = fn.handle_welcome()
+        #resp = fn.handle_welcome()
         #print(resp.json(['Body']))
         
         #logger.debug(name)
