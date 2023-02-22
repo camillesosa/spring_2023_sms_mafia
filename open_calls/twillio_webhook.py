@@ -54,3 +54,37 @@ def handle_gameRules():
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
+def handle_roundPtOne():
+	logger.debug(request.form)
+
+	message = g.sms_client.messages.create(
+		#victim, murder weapon, location, and time change each round
+		#probably pass these as an argument for handle
+		body='Victim was... Victim was killed by ... in... around these times: blank...',
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
+    	#print(request.form['Body'])
+	return json_response( status = "ok" )
+
+def handle_roundPtTwo():
+	logger.debug(request.form)
+
+	message = g.sms_client.messages.create(
+		#player guessed right or wrong
+		#if Suspects array is too small, print different message as player has lost
+		#probably pass these as an argument for handle
+		body='You were...',
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
+    	#print(request.form['Body'])
+	return json_response( status = "ok" )
+
+def handle_gameOver():
+	logger.debug(request.form)
+
+	message = g.sms_client.messages.create(
+		body='Thanks for playing!  Would you like to play again?',
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
+    	#print(request.form['Body'])
+	return json_response( status = "ok" )
