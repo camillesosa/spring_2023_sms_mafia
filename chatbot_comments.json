@@ -45,5 +45,20 @@
         	    "DID NOT FIND"
         	]
 	
-	}
+	},
+	
+	"misc in" : [
+	"I know not what your talking about.",
+	"I will not justify that with a response.",
+	"What just happened.",
+	"Is everyone ok.",
+	"We should all split up.",
+	"Lets get out of here.",
+	"How long before morning.",
+	"When's the next boat get to the marina.",
+	"How far is the policestation.",
+	"Who would cut the telephone line."
+	
+	
+	]
 }
