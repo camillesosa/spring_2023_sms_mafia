@@ -1,6 +1,6 @@
 {
 	"init" : {
-			"content": "Want to play lights out?",
+			"content": "Welcome, want to play Werewolf(1)input one?Zero to quit",
 			"next_state": "choose"
 
 },
@@ -20,6 +20,15 @@
 					}									
 					]			
 		},
+	"1" : {
+			"content" : "New Game",
+			"next_state" : "choose"
+	},
+	"one" : {
+			"content" : "New Game",
+			"next_state" : "choose"
+	},
+		
 	"win_achieved" : {
 				"content" : "Winner Congradulations",
 				"next_state" : "end"
@@ -28,7 +37,15 @@
 				"content": "Sorry, you're lights are out",
 				"next_state" : "choose"
 			},
+	"zero" : {
+			"content" : "Stop in some other time. See ya",
+			"next_state" : "end"
+		},
+	"0" : {
+			"content" : "Stop in some other time. See ya",
+			"next_state" : "end"	
+		},
 	"end" : {
-	"content" : "done"
+			"content" : "done"
 		}
 }
