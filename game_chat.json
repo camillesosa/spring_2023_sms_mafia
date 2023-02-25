@@ -1,0 +1,34 @@
+{
+	"init" : {
+			"content": "Want to play lights out?",
+			"next_state": "choose"
+
+},
+	"choose" : {
+	
+			"content" : "choose your fate.. Type LS to play LightS Out or type lose to lose",
+			"next_state" : [
+					{
+						"input" : "LS",
+						"next_state" : "win_achieved",
+						"point_delta" : 10 
+					},
+					{
+						"input" : "lose",
+						"next_state" : "lights_out",
+						"point_delta" : -10 
+					}									
+					]			
+		},
+	"win_achieved" : {
+				"content" : "Winner Congradulations",
+				"next_state" : "end"
+			},
+	"lights_out" : {
+				"content": "Sorry, you're lights are out",
+				"next_state" : "choose"
+			},
+	"end" : {
+	"content" : "done"
+		}
+}
