@@ -11,12 +11,9 @@ while(state != 4):
     # welcome message
     PlayerName = 'Cam'
     # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
-    fn = getattr(__import__('open_calls.'+proc_name), proc_name)
-    resp = fn.handle_welcome()
     #name = input after handle_welcome
     #logger.debug('Thank you Detective', name, ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
     #maybe pass input from handle_welcome into handle_gameRules for name
-    resp = fn.handle_gameRules()
     # suspect names
     logger.debug('Camella, Camille, Francesca, Luis, and Victor.\n')
     logger.debug('These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.')
