@@ -65,7 +65,7 @@ def handle_request():
 		#	handle_alibi(suspect, location)
 		who()
 		if(state == 3):
-			maybeMurderer = request.form['Body'])
+			maybeMurderer = request.form['Body']
 			if(maybeMurderer != murderer):
 				handle_roundPtTwo(maybeMurderer, wrong)
 			else:
