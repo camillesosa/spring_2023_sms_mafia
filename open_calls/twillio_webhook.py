@@ -29,7 +29,7 @@ def handle_request():
 		body='Welcome Detective! Do you mind confirming your name before I go over the details of the case?',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
-	handle_welcome(name)
+	handle_welcome(request.form['Body'])
 	return json_response( status = "ok" )
 
 def handle_welcome(name):
