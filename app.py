@@ -7,7 +7,7 @@ import datetime
 import bcrypt
 import traceback
 
-from BasicMafia import BasicMafia
+#from BasicMafia import BasicMafia
 from db_con import get_db_instance, get_db
 
 from tools.token_required import token_required
