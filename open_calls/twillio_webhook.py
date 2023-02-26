@@ -21,15 +21,17 @@ with open('config.yml', 'r') as yml_file:
 with open('some_responses.txt', 'r') as myfile:
 	all_file = myfile.read()
 
-
-
-def handle_request():
-	global state
-	logger.debug(request.form)
+def introduction():
 	message = g.sms_client.messages.create(
 		body='Welcome Detective! Do you mind confirming your name before I go over the details of the case?',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
+	
+def handle_request():
+	global state
+	logger.debug(request.form)
+	if(state == 0):
+		introduction()
 	if(state == 1):
 		handle_welcome(request.form['Body'])
 	state += 1
