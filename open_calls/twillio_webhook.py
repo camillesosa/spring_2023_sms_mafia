@@ -31,7 +31,7 @@ def handle_request():
 		to=request.form['From'])
 	if(state == 1):
 		handle_welcome(request.form['Body'])
-	state++
+	state = state + 1
 	return json_response( status = "ok" )
 
 def handle_welcome(name):
