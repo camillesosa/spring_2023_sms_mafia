@@ -41,7 +41,14 @@ def handle_request():
 		suspects.remove(murderer)
 		state += 1
 	if(state == 2):
-		handle_roundPtOne(killed)
+		#victim, murder weapon, location, and time change each round
+		weapons = ['hammer', 'kitchen knife', 'shovel', 'book', 'pen']
+		keyClue = random.randint(0, 4)
+		places = ['garage', 'kitchen', 'gardens', 'library', 'study']
+		#use keyClue for murder weapon and murderer (true location)
+		weapUsed = weapons[keyClue]
+		killLoc = places[random.randint(0, 4)]
+		handle_roundPtOne(killed, weapUsed, killLoc)
 		#add alibis here
 		handle_roundPtTwo(request.form['Body'])
 	state += 1
@@ -58,17 +65,10 @@ def handle_welcome(name):
 	return json_response( status = "ok" )
 
 
-def handle_roundPtOne(killed):
+def handle_roundPtOne(killed, weapUsed, killLoc):
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
-		#victim, murder weapon, location, and time change each round
-		weapons = ['hammer', 'kitchen knife', 'shovel', 'book', 'pen']
-		keyClue = random.randint(0, 4)
-		places = ['garage', 'kitchen', 'gardens', 'library', 'study']
-		#use keyClue for murder weapon and murderer (true location)
-		weapUsed = weapons[keyClue]
-		killLoc = places[random.randint(0, 4)]
 		body='The victim was ' + killed + '. ' + killed + ' was killed with a ' + weapUsed + ' in the ' + killLoc + '.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
