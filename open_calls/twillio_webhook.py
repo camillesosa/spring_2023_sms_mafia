@@ -24,14 +24,15 @@ with open('some_responses.txt', 'r') as myfile:
 
 
 def handle_request():
+	global state
 	logger.debug(request.form)
 	message = g.sms_client.messages.create(
 		body='Welcome Detective! Do you mind confirming your name before I go over the details of the case?',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
-	if(global state == 1):
+	if(state == 1):
 		handle_welcome(request.form['Body'])
-	global state += 1
+	state += 1
 	return json_response( status = "ok" )
 
 def handle_welcome(name):
