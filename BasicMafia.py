@@ -63,7 +63,7 @@ while(state != 4):
         print('Looks like the murderer is still out there. We need to find them before they attack again!')
                 
         #pick new murder victim randomly
-        killed = suspects[random.randint(0, len(suspects)]
+        killed = suspects[random.randint(0, len(suspects)-1]
         suspects.remove(killed)
         rounds = rounds + 1
         state = 2
