@@ -27,6 +27,12 @@ def introduction():
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 	
+def who():
+	message = g.sms_client.messages.create(
+		body='Who do you think the murderer is?',
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
+	
 def handle_request():
 	#main
 	global state
@@ -57,6 +63,9 @@ def handle_request():
 		#else:
 		#	#send real alibi
 		#	handle_alibi(suspect, location)
+		who()
+		if(state == 3):
+			handle_roundPtTwo(request.form['Body'])
 		state += 1
 	if(state == 3):
 		handle_roundPtTwo(request.form['Body'])
