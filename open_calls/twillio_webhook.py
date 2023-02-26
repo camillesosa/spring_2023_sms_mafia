@@ -30,7 +30,6 @@ def handle_request():
 		body=request.form['Body'],
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
-    	print(request.form['Body'])
 	return json_response( status = "ok" )
 
 def handle_welcome():
