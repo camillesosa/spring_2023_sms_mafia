@@ -67,8 +67,6 @@ def handle_request():
 		if(state == 3):
 			handle_roundPtTwo(request.form['Body'])
 		state += 1
-	if(state == 3):
-		handle_roundPtTwo(request.form['Body'])
 	if(state == 0):
 		state += 1
 	return json_response( status = "ok" )
