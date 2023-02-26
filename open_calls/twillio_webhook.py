@@ -35,6 +35,15 @@ def handle_request():
 		introduction()
 	if(state == 1):
 		handle_welcome(request.form['Body'])
+		killed ='Mrs. White'
+		suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
+		murderer = suspects[random.randint(0, 4)]
+		suspects.remove(murderer)
+		state += 1
+	if(state == 2):
+		handle_roundPtOne(killed)
+		#add alibis here
+		handle_roundPtTwo(request.form['Body'])
 	state += 1
 	return json_response( status = "ok" )
 
@@ -42,36 +51,26 @@ def handle_welcome(name):
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
-		body='Thank you Detective ' + name,
+		body='Thank you Detective ' + name + 'we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! The victim is Mrs. White, and we have narrowed the suspects to five individuals: Miss Scarlet, Professor Plum, Mrs. Peacock, Mr. Green, and Colonel Mustard. These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
-def handle_gameRules():
-	logger.debug(request.form)
 
-	message = g.sms_client.messages.create(
-		#name = input after handle_welcome
-		body='Thank you Detective BLANK we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! The victim is Mrs. White, and we have narrowed the suspects to five individuals: Miss Scarlet, Professor Plum, Mrs. Peacock, Mr. Green, and Colonel Mustard. These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.',
-		from_=yml_configs['twillio']['phone_number'],
-		to=request.form['From'])
-    	#print(request.form['Body'])
-	return json_response( status = "ok" )
-
-def handle_roundPtOne():
+def handle_roundPtOne(killed):
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
 		#victim, murder weapon, location, and time change each round
 		#probably pass these as an argument for handle
-		body='Victim was... Victim was killed by ... in... around these times: blank...',
+		body='Victim was ' + killed + '. The victim was killed by ... in... around these times: blank...',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
-def handle_roundPtTwo():
+def handle_roundPtTwo(maybeMurderer):
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
