@@ -82,8 +82,6 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 		body='The victim was ' + killed + '. ' + killed + ' was killed with a ' + weapUsed + ' in the ' + killLoc + '.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
-    	#print(request.form['Body'])
-	return json_response( status = "ok" )
 
 def handle_roundPtTwo(maybeMurderer):
 	logger.debug(request.form)
