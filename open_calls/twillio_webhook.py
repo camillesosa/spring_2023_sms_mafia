@@ -49,7 +49,16 @@ def handle_request():
 		weapUsed = weapons[keyClue]
 		killLoc = places[random.randint(0, 4)]
 		handle_roundPtOne(killed, weapUsed, killLoc)
-		#add alibis here
+		#add alibis here (might just text all alibis tbh)
+		#depending on which name the user texts, change whats passed through handle_alibi
+		#if(asking == murder):
+		#	#send false alibi
+		#	handle_alibi(suspect, location)
+		#else:
+		#	#send real alibi
+		#	handle_alibi(suspect, location)
+		state += 1
+	if(state == 3)
 		handle_roundPtTwo(request.form['Body'])
 	state += 1
 	return json_response( status = "ok" )
@@ -83,6 +92,16 @@ def handle_roundPtTwo(maybeMurderer):
 		#if Suspects array is too small, print different message as player has lost
 		#probably pass these as an argument for handle
 		body='You were...',
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
+    	#print(request.form['Body'])
+	return json_response( status = "ok" )
+
+def handle_alibi(suspect, location):
+	logger.debug(request.form)
+	#the murderers fake alibi
+	message = g.sms_client.messages.create(
+		body='I was with ' + suspect + ' in the ' + location + ' at the time of the murder.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
