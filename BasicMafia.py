@@ -23,23 +23,23 @@ while(state != 4):
     # randomly assign one suspect to be the murder
 
     # For testing
-    # murderer = 'Camille'
-    killed = 'Steve'
-    suspects = ['Luis', 'Francesca', 'Camella', 'Camille', 'Victor']
+    killed = 'Mrs. White'
+    suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
     murderer = suspects[random.randint(0, 4)]
+    suspects.remove(murderer)
     # lose if array size < 2
     rounds = 1
     state = self.state + 1
 
         
   if (state == 2):
-    print('Victim was...')
-    #Randomly pick murder time, murder weapon, and murder location
-    #For example, murder occured sometime after 3 but before 5, victim was killed with a hammer in the gardens
+    print('Victim was', killed, 'and they were killed with [INSERT WEAPON] at the [INSERT LOCATION].')
+    #Randomly murder weapon and murder location
+    #For example, victim was killed with a hammer in the gardens
         
     #Randomly assign allibis (vague, with some conflicting
-    #For example, Victor was with me in the kitchen at 4, but Victor said he was in the garage
-    #send media files as well
+    #For example, someone says "Victor was with me in the kitchen at the time of the murder", but Victor said he was in the garage
+    #send media files as well for murder weapon and location
         
     voted = "F"
     while (voted != "T"):
@@ -58,23 +58,17 @@ while(state != 4):
       print("Oh no!", maybeMurderer, "was not the murderer!")
       # look up nickname in citizen array, delete entry
       suspects.remove(maybeMurderer)
-      index = 0
-      while (index < len(suspects)):
-        if (suspects[index] == killed):
-          suspects.remove(killed)
-          index = len(suspects)
-        else:
-          index = index + 1
       if (len(suspects) > 1):
         # move on to next round
-        print('Looks like the murderer is still out there... Hopefully there are no more attacks...')
+        print('Looks like the murderer is still out there. We need to find them before they attack again!')
                 
-        #pick new murder victim randomly                   #ran = random number [1, len(suspects)]
-        #killed = suspects[ran]
+        #pick new murder victim randomly
+        killed = suspects[random.randint(0, suspects.len())]
+        suspects.remove(killed)
         rounds = rounds + 1
         state = 2
-      if (len(suspects) < 2):
-        # mafia wins, go to end state
+      else:
+        # murderer wins, go to end state
         print('Oh no! You failed to find the murderer in time :(\n The murderer was actually', murderer, ':(')
         state = 4
 
