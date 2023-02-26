@@ -27,10 +27,10 @@ def handle_request():
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
-		body=random.choice(all_file.splitlines()),
+		body=request.form['Body']),
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
-    	#print(request.form['Body'])
+    	print(request.form['Body'])
 	return json_response( status = "ok" )
 
 def handle_welcome():
