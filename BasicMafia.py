@@ -7,7 +7,6 @@ from tools.logging import logger
     #self.state = state
 state = 1
 While(state != 4):
-  #def testFunc(self):
   if (self.state == 1):
     # welcome message
     PlayerName = 'Cam'
