@@ -63,8 +63,8 @@ def handle_roundPtOne(killed):
 
 	message = g.sms_client.messages.create(
 		#victim, murder weapon, location, and time change each round
-		weapons = ['hammer', 'kitchen knife', 'shovel', 'book', 'pen']
 		places = ['garage', 'kitchen', 'gardens', 'library', 'study']
+		weapons = ['hammer', 'kitchen knife', 'shovel', 'book', 'pen']
 		keyClue = random.randint(0, 4)
 		#use keyClue for murder weapon and murderer (true location)
 		weapUsed = weapons[keyClue]
