@@ -64,11 +64,11 @@ def handle_roundPtOne(killed):
 	message = g.sms_client.messages.create(
 		#victim, murder weapon, location, and time change each round
 		weapons = ['hammer', 'kitchen knife', 'shovel', 'book', 'pen']
-		locations = ['garage', 'kitchen', 'gardens', 'library', 'study']
+		places = ['garage', 'kitchen', 'gardens', 'library', 'study']
 		keyClue = random.randint(0, 4)
 		#use keyClue for murder weapon and murderer (true location)
 		weapUsed = weapons[keyClue]
-		killLoc = locations[random.randint(0, 4)
+		killLoc = places[random.randint(0, 4)]
 		body='The victim was ' + killed + '. ' + killed + ' was killed with a ' + weapUsed + ' in the ' + killLoc + '.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
