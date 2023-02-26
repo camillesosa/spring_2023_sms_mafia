@@ -25,18 +25,18 @@ with open('some_responses.txt', 'r') as myfile:
 
 def handle_request():
 	logger.debug(request.form)
-
 	message = g.sms_client.messages.create(
-		body=request.form['Body'],
+		body='Welcome Detective! Do you mind confirming your name before I go over the details of the case?',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
+	handle_welcome(name)
 	return json_response( status = "ok" )
 
-def handle_welcome():
+def handle_welcome(name):
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
-		body='Welcome Detective! Do you mind confirming your name before I go over the details of the case?',
+		body='Thank you Detective ' + name,
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
