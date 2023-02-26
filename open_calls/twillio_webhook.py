@@ -28,6 +28,7 @@ def introduction():
 		to=request.form['From'])
 	
 def handle_request():
+	#main
 	global state
 	logger.debug(request.form)
 	if(state == 0):
