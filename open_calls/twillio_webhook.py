@@ -65,7 +65,12 @@ def handle_request():
 		#	handle_alibi(suspect, location)
 		who()
 		if(state == 3):
-			handle_roundPtTwo(request.form['Body'])
+			maybeMurderer = request.form['Body'])
+			if(maybeMurderer != murderer):
+				handle_roundPtTwo(maybeMurderer, wrong)
+			else:
+				handle_roundPtTwo(maybeMurderer, right)
+			#handle_roundPtTwo(request.form['Body'])
 		state += 1
 	if(state == 0):
 		state += 1
@@ -90,16 +95,20 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 
-def handle_roundPtTwo(maybeMurderer):
+def handle_roundPtTwo(maybeMurderer, isM):
 	logger.debug(request.form)
-
-	message = g.sms_client.messages.create(
-		#player guessed right or wrong
-		#if Suspects array is too small, print different message as player has lost
-		#probably pass these as an argument for handle
-		body='You were...',
-		from_=yml_configs['twillio']['phone_number'],
-		to=request.form['From'])
+	if(isM == "wrong"):
+		message = g.sms_client.messages.create(
+			#if Suspects array is too small, print different message as player has lost
+			body='You were wrong :(',
+			from_=yml_configs['twillio']['phone_number'],
+			to=request.form['From'])
+	if(isM == "right"):
+		message = g.sms_client.messages.create(
+			#if Suspects array is too small, print different message as player has lost
+			body='You were right :)',
+			from_=yml_configs['twillio']['phone_number'],
+			to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
