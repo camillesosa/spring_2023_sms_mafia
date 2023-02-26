@@ -5,7 +5,7 @@ from tools.logging import logger
 #class BasicMafia:
   #def __init__(self,state):
     #self.state = state
-
+state = 1
 While(state != 4):
   #def testFunc(self):
   if (self.state == 1):
