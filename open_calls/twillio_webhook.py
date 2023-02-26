@@ -39,8 +39,8 @@ def handle_request():
 		suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 		murderer = suspects[random.randint(0, 4)]
 		suspects.remove(murderer)
-		state += 1
-	if(state == 2):
+		state += 2
+	if(state == 3):
 		#victim, murder weapon, location, and time change each round
 		weapons = ['hammer', 'kitchen knife', 'shovel', 'book', 'pen']
 		keyClue = random.randint(0, 4)
@@ -57,8 +57,8 @@ def handle_request():
 		#else:
 		#	#send real alibi
 		#	handle_alibi(suspect, location)
-		state += 1
-	if(state == 3):
+		state += 2
+	if(state == 5):
 		handle_roundPtTwo(request.form['Body'])
 	state += 1
 	return json_response( status = "ok" )
