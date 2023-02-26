@@ -13,7 +13,8 @@ import pickle
 yml_configs = {}
 BODY_MSGS = []
 
-global state == 0
+global state
+state = 0
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
 
