@@ -6,7 +6,7 @@ from tools.logging import logger
   #def __init__(self,state):
     #self.state = state
 state = 1
-While(state != 4):
+while(state != 4):
   if (self.state == 1):
     # welcome message
     PlayerName = 'Cam'
