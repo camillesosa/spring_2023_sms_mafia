@@ -29,7 +29,7 @@ while(state != 4):
     suspects.remove(murderer)
     # lose if array size < 2
     rounds = 1
-    state = self.state + 1
+    state = state + 1
 
         
   if (state == 2):
@@ -63,7 +63,7 @@ while(state != 4):
         print('Looks like the murderer is still out there. We need to find them before they attack again!')
                 
         #pick new murder victim randomly
-        killed = suspects[random.randint(0, suspects.len())]
+        killed = suspects[random.randint(0, len(suspects)]
         suspects.remove(killed)
         rounds = rounds + 1
         state = 2
