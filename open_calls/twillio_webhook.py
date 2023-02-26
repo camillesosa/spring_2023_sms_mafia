@@ -51,7 +51,7 @@ def handle_welcome(name):
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
-		body='Thank you Detective ' + name + 'we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! The victim is Mrs. White, and we have narrowed the suspects to five individuals: Miss Scarlet, Professor Plum, Mrs. Peacock, Mr. Green, and Colonel Mustard. These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.',
+		body='Thank you Detective ' + name + ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! The victim is Mrs. White, and we have narrowed the suspects to five individuals: Miss Scarlet, Professor Plum, Mrs. Peacock, Mr. Green, and Colonel Mustard. These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
@@ -63,8 +63,13 @@ def handle_roundPtOne(killed):
 
 	message = g.sms_client.messages.create(
 		#victim, murder weapon, location, and time change each round
-		#probably pass these as an argument for handle
-		body='Victim was ' + killed + '. The victim was killed by ... in... around these times: blank...',
+		weapons = ['hammer', 'kitchen knife', 'shovel', 'book', 'pen']
+		locations = ['garage', 'kitchen', 'gardens', 'library', 'study']
+		keyClue = random.randint(0, 4)
+		#use keyClue for murder weapon and murderer (true location)
+		weapUsed = weapons[keyClue]
+		killLoc = locations[random.randint(0, 4)
+		body='The victim was ' + killed + '. ' + killed + ' was killed with a ' + weapUsed + ' in the ' + killLoc + '.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
