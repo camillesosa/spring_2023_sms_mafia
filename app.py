@@ -75,12 +75,7 @@ def exec_proc(proc_name):
     resp = ""
     try:
         fn = getattr(__import__('open_calls.'+proc_name), proc_name)
-        resp = fn.handle_welcome()
-        #print(resp.json(['Body']))
-        resp = fn.handle_gameRules()
-        #logger.debug(name)
-        test = BasicMafia(1);
-        test.testFunc();
+        resp = fn.handle_request()
     except Exception as err:
         ex_data = str(Exception) + '\n'
         ex_data = ex_data + str(err) + '\n'
