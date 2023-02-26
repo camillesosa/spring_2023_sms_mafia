@@ -58,7 +58,7 @@ def handle_request():
 		#	#send real alibi
 		#	handle_alibi(suspect, location)
 		state += 1
-	if(state == 3)
+	if(state == 3):
 		handle_roundPtTwo(request.form['Body'])
 	state += 1
 	return json_response( status = "ok" )
