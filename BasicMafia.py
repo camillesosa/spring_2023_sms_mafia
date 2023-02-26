@@ -7,7 +7,7 @@ from tools.logging import logger
     #self.state = state
 state = 1
 while(state != 4):
-  if (self.state == 1):
+  if (state == 1):
     # welcome message
     PlayerName = 'Cam'
     # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
