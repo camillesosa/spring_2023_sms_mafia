@@ -13,7 +13,7 @@ import pickle
 yml_configs = {}
 BODY_MSGS = []
 
-global state = 0
+state = 0
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
 
@@ -29,9 +29,9 @@ def handle_request():
 		body='Welcome Detective! Do you mind confirming your name before I go over the details of the case?',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
-	if(state == 1):
+	if(global state == 1):
 		handle_welcome(request.form['Body'])
-	state += 1
+	global state += 1
 	return json_response( status = "ok" )
 
 def handle_welcome(name):
