@@ -70,9 +70,9 @@ def handle_request():
 		logger.debug('They picked ' + maybeMurderer)
 		logger.debug('Murderer is ' + murderer)
 		if(maybeMurderer != murderer):
-			handle_roundPtTwo(maybeMurderer, "wrong")
+			handle_roundPtTwo(maybeMurderer, "wrong", len(suspects)-1)
 		else:
-			handle_roundPtTwo(maybeMurderer, "right")
+			handle_roundPtTwo(maybeMurderer, "right", len(suspects)-1)
 			#handle_roundPtTwo(request.form['Body'])
 	state += 1
 	if(state == 0):
@@ -98,13 +98,26 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 
-def handle_roundPtTwo(maybeMurderer, isM):
+def handle_roundPtTwo(maybeMurderer, isM, susLeft):
 	logger.debug(request.form)
-	message = g.sms_client.messages.create(
-		#if Suspects array is too small, print different message as player has lost
-		body='You were ' + isM + '.',
-		from_=yml_configs['twillio']['phone_number'],
-		to=request.form['From'])
+	if(isM == 'wrong' && susLeft > 1):
+		message = g.sms_client.messages.create(
+			#if Suspects array is too small, print different message as player has lost
+			body='Oh no! ' + maybeMurderer + ' was not the murderer! Looks like the murderer is still out there. We need to find them before they attack again!',
+			from_=yml_configs['twillio']['phone_number'],
+			to=request.form['From'])
+	if(isM == 'wrong' && susLeft == 1):
+		message = g.sms_client.messages.create(
+			#if Suspects array is too small, print different message as player has lost
+			body='Oh no! ' + maybeMurderer + ' was not the murderer! You failed to find the murderer in time :(',
+			from_=yml_configs['twillio']['phone_number'],
+			to=request.form['From'])
+	if(isM == 'right'):
+		message = g.sms_client.messages.create(
+			#if Suspects array is too small, print different message as player has lost
+			body='Excellent job Detective! ' + maybeMurderer + ' was the murderer!',
+			from_=yml_configs['twillio']['phone_number'],
+			to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
