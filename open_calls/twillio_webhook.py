@@ -64,15 +64,15 @@ def handle_request():
 		#	#send real alibi
 		#	handle_alibi(suspect, location)
 		who()
-		if(state == 3):
-			maybeMurderer = request.form['Body']
-			logger.debug('They picked ' + maybeMurderer)
-			if(maybeMurderer != murderer):
-				handle_roundPtTwo(maybeMurderer, "wrong")
-			else:
-				handle_roundPtTwo(maybeMurderer, "right")
+	if(state == 3):
+		maybeMurderer = request.form['Body']
+		logger.debug('They picked ' + maybeMurderer)
+		if(maybeMurderer != murderer):
+			handle_roundPtTwo(maybeMurderer, "wrong")
+		else:
+			handle_roundPtTwo(maybeMurderer, "right")
 			#handle_roundPtTwo(request.form['Body'])
-		state += 1
+	state += 1
 	if(state == 0):
 		state += 1
 	return json_response( status = "ok" )
