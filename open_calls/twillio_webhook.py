@@ -34,6 +34,17 @@ def who(suspects):
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 	
+def makeAlibi(suspect, status):
+	if(status == 'do not remember'):
+		additions = ['Sorry...', "Why are you asking me anyways?! I'm not the murderer!", "I wouldn't tell you anyways."] 
+		alibi = suspect + ': I ' + status + '... ' + additions[random.randint(0, 2)]
+	else:
+		if(extra != 'none'):
+			
+		additions = ["You don't think it was me, right?", "But why are you asking me? I didn't do it!", "Please find the killer soon, I'm scared!"]
+		alibi = suspect + ': I ' + status + ' at the time of the murder. ' + additions[random.randint(0, 2)]
+	return alibi
+	
 def handle_request():
 	#main
 	global state
@@ -62,14 +73,51 @@ def handle_request():
 		killLoc = places[random.randint(0, 4)]
 		handle_roundPtOne(killed, weapUsed, killLoc)
 		#add alibis here (might just text all alibis tbh)
+		#alibis for inocent suspects
 		alibis = ['was with', 'was by myself', 'do not remember']
-		#depending on which name the user texts, change whats passed through handle_alibi
-		#if(asking == murder):
-		#	#send false alibi
-		#	handle_alibi(suspect, location)
-		#else:
-		#	#send real alibi
-		#	handle_alibi(suspect, location)
+		susToUse = suspects
+		i = 0
+		while(i < len(suspects)):
+			randomi = random.randint(0, 4)
+			while(randomi == keyClue):
+				randomLoc = random.randint(0, 4)
+			alibi = alibis[random.randint(0, 2)]
+			if(alibi == 'was with'):
+				if(len(susToUse) == 0):
+					alibi = 'was by myself'
+				else:
+					using = random.randint(0, len(susToUse)-1)
+					alibi = alibi + susToUse[using] + ' in the ' + places[randomLoc]
+					susToUse.remove(using)
+					iAlibi = makeAlibi(suspects[i], alibi)
+					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
+					handle_alibi(iAlibi)
+			if(alibi == 'was by myself'):
+				alibi = alibi + ' in the ' + places[randomLoc]
+				iAlibi = makeAlibi(suspects[i], alibi)
+				#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
+				handle_alibi(iAlibi)
+			if(alibi == 'do not remember'):
+				iAlibi = makeAlibi(suspects[i], alibi)
+				#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
+				handle_alibi(iAlibi)
+			i += 1
+		#false alibi for murderer
+		alibi = alibis[random.randint(0, 2)]
+		if(alibi == 'was with'):
+			alibi = alibi + suspects[random.randint(0, len(suspects)-1)] + ' in the ' + places[randomLoc]
+			iAlibi = makeAlibi(murderer, alibi)
+			#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
+			handle_alibi(iAlibi)
+		if(alibi == 'was by myself'):
+			alibi = alibi + ' in the ' + places[randomLoc]
+			iAlibi = makeAlibi(suspects[i], alibi)
+			#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
+			handle_alibi(iAlibi)
+		if(alibi == 'do not remember'):
+			iAlibi = makeAlibi(suspects[i], alibi)		
+			#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
+			handle_alibi(iAlibi)
 		i = 0
 		suspectsStr = ''
 		while(i < len(suspects)):
@@ -159,11 +207,11 @@ def handle_roundPtTwo(maybeMurderer, isM, susLeft):
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
-def handle_alibi(suspect, location):
+def handle_alibi(alibi):
 	logger.debug(request.form)
 	#the murderers fake alibi
 	message = g.sms_client.messages.create(
-		body='I was with ' + suspect + ' in the ' + location + ' at the time of the murder.',
+		body=alibi,
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
