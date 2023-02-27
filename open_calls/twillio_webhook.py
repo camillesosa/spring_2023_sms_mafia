@@ -107,8 +107,8 @@ def handle_request():
 			i += 1
 		#false alibi for murderer
 		randomLoc = random.randint(0, 4)
-    		while(randomLoc == keyClue):
-    			randomLoc = random.randint(0, 4)
+		while(randomLoc == keyClue):
+			randomLoc = random.randint(0, 4)
 		alibi = alibis[random.randint(0, len(alibis)-1)]
 		if(alibi == 'was with'):
 			alibi = alibi + suspects[random.randint(0, len(suspects)-1)] + ' in the ' + places[randomLoc]
