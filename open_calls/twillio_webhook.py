@@ -98,18 +98,11 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 
 def handle_roundPtTwo(maybeMurderer, isM):
 	logger.debug(request.form)
-	if(isM == "wrong"):
-		message = g.sms_client.messages.create(
-			#if Suspects array is too small, print different message as player has lost
-			body='You were wrong :(',
-			from_=yml_configs['twillio']['phone_number'],
-			to=request.form['From'])
-	if(isM == "right"):
-		message = g.sms_client.messages.create(
-			#if Suspects array is too small, print different message as player has lost
-			body='You were right :)',
-			from_=yml_configs['twillio']['phone_number'],
-			to=request.form['From'])
+	message = g.sms_client.messages.create(
+		#if Suspects array is too small, print different message as player has lost
+		body='You were ' + isM + '.',
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
