@@ -45,6 +45,14 @@ def makeAlibi(suspect, status):
 	return alibi
 
 def roundDecision(maybeMurderer, isM, susLeft):
+	if(isM == 'wrong'):
+		if(susLeft > 1):
+			val = 'Oh no! ' + maybeMurderer + ' was not the murderer! Looks like the murderer is still out there. We need to find them before they attack again!'
+		else:
+			val = 'Oh no! ' + maybeMurderer + ' was not the murderer and you failed to find the murderer in time :('
+	if(isM == 'right'):
+		message = g.sms_client.messages.create(
+			val = 'Excellent job Detective! ' + maybeMurderer + ' was the murderer!'
 
 def gameOver(outcome, rounds, saved, name, murderer):
 	if(outcome == 'win'):
@@ -154,26 +162,29 @@ def handle_request():
 			suspects.remove(maybeMurderer)
 			characters.remove(maybeMurderer)
 			if(len(suspects)-1 == 1):
-				handle_roundPtTwo(maybeMurderer, "wrong", len(suspects)-1)
+				result = roundDecision(maybeMurderer, "wrong", len(suspects)-1)
+				handle_roundPtTwo(result)
 				rounds += 1
 				state = 3
 				outcome = 'lose'
 			if(len(suspects)-1 > 1):
-				handle_roundPtTwo(maybeMurderer, "wrong", len(suspects)-1)
+				roundDecision(maybeMurderer, "wrong", len(suspects)-1)
+				handle_roundPtTwo(result)
 				rounds += 1
 				state = 1
 				killed = suspects[random.randint(0, len(suspects)-1)]
 				suspects.remove(killed)
 				characters.remove(killed)
 		else:
-			handle_roundPtTwo(maybeMurderer, "right", len(suspects)-1)
+			roundDecision(maybeMurderer, "right", len(suspects)-1)
+			handle_roundPtTwo(result)
 			state = 3
 			outcome = 'win'
 			#handle_roundPtTwo(request.form['Body'])
 	state += 1
 	if(state == 4):
-		result = gameOver(outcome, rounds, len(suspects)-1)
-		handle_gameOver(result)
+		endResult = gameOver(outcome, rounds, len(suspects)-1)
+		handle_gameOver(endResult)
 		#would you like to play again? yes/no?
 		playA = request.form['Body']
 		if(playA == 'yes' | 'Yes'):
@@ -204,27 +215,14 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 
-def handle_roundPtTwo(maybeMurderer, isM, susLeft):
+def handle_roundPtTwo(result):
 	logger.debug(request.form)
-	if(isM == 'wrong'):
-		if(susLeft > 1):
-			message = g.sms_client.messages.create(
-				#if Suspects array is too small, print different message as player has lost
-				body='Oh no! ' + maybeMurderer + ' was not the murderer! Looks like the murderer is still out there. We need to find them before they attack again!',
-				from_=yml_configs['twillio']['phone_number'],
-				to=request.form['From'])
-		else:
-			message = g.sms_client.messages.create(
-				#if Suspects array is too small, print different message as player has lost
-				body='Oh no! ' + maybeMurderer + ' was not the murderer and you failed to find the murderer in time :(',
-				from_=yml_configs['twillio']['phone_number'],
-				to=request.form['From'])
-	if(isM == 'right'):
-		message = g.sms_client.messages.create(
-			#if Suspects array is too small, print different message as player has lost
-			body='Excellent job Detective! ' + maybeMurderer + ' was the murderer!',
-			from_=yml_configs['twillio']['phone_number'],
-			to=request.form['From'])
+			
+	message = g.sms_client.messages.create(
+		#if Suspects array is too small, print different message as player has lost
+		body=result,
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
@@ -238,11 +236,11 @@ def handle_alibi(alibi):
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
-def handle_gameOver(result):
+def handle_gameOver(endResult):
 	logger.debug(request.form)
 	
 	message = g.sms_client.messages.create(
-		body=result,
+		body=endResult,
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
