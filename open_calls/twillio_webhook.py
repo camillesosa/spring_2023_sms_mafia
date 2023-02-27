@@ -44,7 +44,6 @@ def handle_request():
 		killed ='Mrs. White'
 		suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 		murderer = suspects[random.randint(0, 4)]
-		logger.debug('murderer is ' + murderer)
 		suspects.remove(murderer)
 		state += 1
 	if(state == 2):
@@ -68,6 +67,7 @@ def handle_request():
 	if(state == 3):
 		maybeMurderer = request.form['Body']
 		logger.debug('They picked ' + maybeMurderer)
+		logger.debug('Murderer is ' + murderer)
 		if(maybeMurderer != murderer):
 			handle_roundPtTwo(maybeMurderer, "wrong")
 		else:
