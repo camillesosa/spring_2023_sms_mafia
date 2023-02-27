@@ -76,6 +76,7 @@ def exec_proc(proc_name):
     try:
         fn = getattr(__import__('open_calls.'+proc_name), proc_name)
         resp = fn.handle_request()
+
     except Exception as err:
         ex_data = str(Exception) + '\n'
         ex_data = ex_data + str(err) + '\n'
