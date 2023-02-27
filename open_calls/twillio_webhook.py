@@ -30,7 +30,7 @@ def introduction():
 	
 def who(suspects):
 	message = g.sms_client.messages.create(
-		body='The suspects are: ' + suspects + '. Who do you think the murderer is? (Please enter name exactly as shown)',
+		body='The suspects are: ' + suspects + ' Who do you think the murderer is? (Please enter name exactly as shown)',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 	
@@ -74,7 +74,7 @@ def handle_request():
 		suspectsStr = ''
 		while(i < len(suspects)):
 			if(i == len(suspects)-1):
-				suspectsStr = suspectsStr + 'and ' suspects[i] + '.'
+				suspectsStr = suspectsStr + 'and ' + suspects[i] + '.'
 				i += 1
 			else:
 				suspectsStr = suspectsStr + suspects[i] + ', '
