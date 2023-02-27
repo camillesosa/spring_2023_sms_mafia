@@ -37,7 +37,9 @@ def handle_request():
 	#main
 	global state
 	global murderer
+	global round
 	logger.debug(request.form)
+	#while(state != 5):
 	if(state == 0):
 		introduction()
 	if(state == 1):
@@ -46,6 +48,7 @@ def handle_request():
 		suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 		murderer = suspects[random.randint(0, 4)]
 		suspects.remove(murderer)
+		rounds = 1
 		state += 1
 	if(state == 2):
 		#victim, murder weapon, location, and time change each round
@@ -71,10 +74,22 @@ def handle_request():
 		logger.debug('Murderer is ' + murderer)
 		if(maybeMurderer != murderer):
 			handle_roundPtTwo(maybeMurderer, "wrong", len(suspects)-1)
+			rounds += 1
+			state = 1
 		else:
 			handle_roundPtTwo(maybeMurderer, "right", len(suspects)-1)
+			state = 3
 			#handle_roundPtTwo(request.form['Body'])
 	state += 1
+	if(state == 4):
+		handle_gameOver(outcome, rounds, len(suspects)-1)
+		#would you like to play again? yes/no?
+		playA = request.form['Body']
+		if(playA == 'yes' | 'Yes'):
+			state = 0
+		else:
+			state = 5
+			#end
 	if(state == 0):
 		state += 1
 	return json_response( status = "ok" )
