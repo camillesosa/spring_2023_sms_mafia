@@ -15,6 +15,7 @@ BODY_MSGS = []
 
 state = 0
 suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
+characters = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
 
@@ -39,8 +40,6 @@ def makeAlibi(suspect, status):
 		additions = ['Sorry...', "Why are you asking me anyways?! I'm not the murderer!", "I wouldn't tell you anyways."] 
 		alibi = suspect + ': I ' + status + '... ' + additions[random.randint(0, 2)]
 	else:
-		if(extra != 'none'):
-			
 		additions = ["You don't think it was me, right?", "But why are you asking me? I didn't do it!", "Please find the killer soon, I'm scared!"]
 		alibi = suspect + ': I ' + status + ' at the time of the murder. ' + additions[random.randint(0, 2)]
 	return alibi
@@ -49,6 +48,7 @@ def handle_request():
 	#main
 	global state
 	global suspects
+	global characters
 	global murderer
 	global rounds
 	logger.debug(request.form)
@@ -59,6 +59,7 @@ def handle_request():
 		handle_welcome(request.form['Body'])
 		killed ='Mrs. White'
 		#suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
+		#characters = suspects
 		murderer = suspects[random.randint(0, 4)]
 		suspects.remove(murderer)
 		rounds = 1
@@ -74,36 +75,41 @@ def handle_request():
 		handle_roundPtOne(killed, weapUsed, killLoc)
 		#add alibis here (might just text all alibis tbh)
 		#alibis for inocent suspects
-		alibis = ['was with', 'was by myself', 'do not remember']
+		alibis = ['was with ', 'was by myself', 'do not remember']
+		if(rounds > 1):
+			alibis.remove('do not remember')
 		susToUse = suspects
 		i = 0
 		while(i < len(suspects)):
-			randomi = random.randint(0, 4)
-			while(randomi == keyClue):
+			randomLoc = random.randint(0, 4)
+			while(randomLoc == keyClue):
 				randomLoc = random.randint(0, 4)
-			alibi = alibis[random.randint(0, 2)]
-			if(alibi == 'was with'):
+			alibi = alibis[random.randint(0, len(alibis)-1)]
+			if(alibi == 'was with '):
 				if(len(susToUse) == 0):
 					alibi = 'was by myself'
 				else:
 					using = random.randint(0, len(susToUse)-1)
 					alibi = alibi + susToUse[using] + ' in the ' + places[randomLoc]
-					susToUse.remove(using)
+					susToUse.remove(susToUse[using])
 					iAlibi = makeAlibi(suspects[i], alibi)
 					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 					handle_alibi(iAlibi)
 			if(alibi == 'was by myself'):
 				alibi = alibi + ' in the ' + places[randomLoc]
-				iAlibi = makeAlibi(suspects[i], alibi)
+				iAlibi = makeAlibi(murderer, alibi)
 				#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 				handle_alibi(iAlibi)
 			if(alibi == 'do not remember'):
-				iAlibi = makeAlibi(suspects[i], alibi)
+				iAlibi = makeAlibi(murderer, alibi)
 				#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 				handle_alibi(iAlibi)
 			i += 1
 		#false alibi for murderer
-		alibi = alibis[random.randint(0, 2)]
+		randomLoc = random.randint(0, 4)
+    		while(randomLoc == keyClue):
+    			randomLoc = random.randint(0, 4)
+		alibi = alibis[random.randint(0, len(alibis)-1)]
 		if(alibi == 'was with'):
 			alibi = alibi + suspects[random.randint(0, len(suspects)-1)] + ' in the ' + places[randomLoc]
 			iAlibi = makeAlibi(murderer, alibi)
@@ -120,12 +126,12 @@ def handle_request():
 			handle_alibi(iAlibi)
 		i = 0
 		suspectsStr = ''
-		while(i < len(suspects)):
-			if(i == len(suspects)-1):
-				suspectsStr = suspectsStr + 'and ' + suspects[i] + '.'
+		while(i < len(characters)):
+			if(i == len(characters)-1):
+				suspectsStr = suspectsStr + 'and ' + characters[i] + '.'
 				i += 1
 			else:
-				suspectsStr = suspectsStr + suspects[i] + ', '
+				suspectsStr = suspectsStr + characters[i] + ', '
 				i += 1
 		who(suspectsStr)
 	if(state == 3):
@@ -134,6 +140,7 @@ def handle_request():
 		logger.debug('Murderer is ' + murderer)
 		if(maybeMurderer != murderer):
 			suspects.remove(maybeMurderer)
+			characters.remove(maybeMurderer)
 			if(len(suspects)-1 == 1):
 				handle_roundPtTwo(maybeMurderer, "wrong", len(suspects)-1)
 				rounds += 1
@@ -145,6 +152,7 @@ def handle_request():
 				state = 1
 				killed = suspects[random.randint(0, len(suspects)-1)]
 				suspects.remove(killed)
+				characters.remove(killed)
 		else:
 			handle_roundPtTwo(maybeMurderer, "right", len(suspects)-1)
 			state = 3
