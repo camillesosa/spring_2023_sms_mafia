@@ -86,7 +86,7 @@ def handle_request():
 		#would you like to play again? yes/no?
 		playA = request.form['Body']
 		if(playA == 'yes' | 'Yes'):
-			state = 0
+			state = 1
 		else:
 			state = 5
 			#end
