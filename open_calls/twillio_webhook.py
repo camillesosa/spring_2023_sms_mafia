@@ -4,7 +4,6 @@ from flask_json import FlaskJSON, JsonError, json_response, as_json
 from os.path import exists
 
 from tools.logging import logger
-from players.actors import actor
 
 import random
 import json
@@ -22,7 +21,6 @@ with open('some_responses.txt', 'r') as myfile:
 	all_file = myfile.read()
 
 
-
 def handle_request():
 	logger.debug(request.form)
 
@@ -30,5 +28,4 @@ def handle_request():
 		body=random.choice(all_file.splitlines()),
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
-    	#print(request.form['Body'])
 	return json_response( status = "ok" )

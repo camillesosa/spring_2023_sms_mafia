@@ -4,15 +4,16 @@ import json
 
 from NPC import NPC
 
+characters =[]
+
 with open('enviroment.json') as json_file:
     data = json.load(json_file)
     
 Weapons = data['weapon_list']
+Rooms = data['room']
     
-def createPlayers():
+def createEnviroment():
     
-    characters =[]
-
     for npc in data['characters']:
         characters.append(NPC(npc['name'],npc['age']))
         
@@ -21,17 +22,17 @@ def createPlayers():
     Villain = random.choice(characters)
     Villain.setGuilty(True)
     
-    debug(characters, Villain)
+    ##debug(characters, Villain)
     
-    return characters, Villain
-    
+    return characters, Rooms, Villain
 
-def debug(characters, Villain):
+""" def debug(characters, Villain):
     print('Chartacters Debugger:')
     print(f'The Villain is:{Villain.getName()}')
     for x in characters:
         print(f'NPCs:{x.getName()} ____ Weapon:{x.getWeapon()} _____ Guilty:{x.getGuilty()}')
     
+    """
     
 def assignWeapon(characters):
     for character in characters:
@@ -42,4 +43,3 @@ def randomizeGun():
     temp = Weapons[value]
     Weapons.remove(temp)
     return temp
-            
