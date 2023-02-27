@@ -43,6 +43,18 @@ def makeAlibi(suspect, status):
 		additions = ["You don't think it was me, right?", "But why are you asking me? I didn't do it!", "Please find the killer soon, I'm scared!"]
 		alibi = suspect + ': I ' + status + ' at the time of the murder. ' + additions[random.randint(0, 2)]
 	return alibi
+
+def roundDecision(maybeMurderer, isM, susLeft):
+
+def gameOver(outcome, rounds, saved, name, murderer):
+	if(outcome == 'win'):
+		if(rounds == 1):
+			val = 'It only took you 1 round to find the murderer and you saved everyone else involved! Outstanding work Detective ' + name + ', they better give you a raise!'
+		if(rounds > 1):
+			val = 'It took you ' + rounds + ' rounds to find the murderer and you saved ' + saved + ' people. Nice work Detective ' + name + '!'
+	if(outcome == 'lose'):
+		val = 'The murderer was actually ' + murderer + '. I am sorry Detective  ' + name + ', at least you got out of there safe and sound.  Better luck next time.'
+	return val
 	
 def handle_request():
 	#main
@@ -160,7 +172,8 @@ def handle_request():
 			#handle_roundPtTwo(request.form['Body'])
 	state += 1
 	if(state == 4):
-		handle_gameOver(outcome, rounds, len(suspects)-1)
+		result = gameOver(outcome, rounds, len(suspects)-1)
+		handle_gameOver(result)
 		#would you like to play again? yes/no?
 		playA = request.form['Body']
 		if(playA == 'yes' | 'Yes'):
@@ -225,23 +238,12 @@ def handle_alibi(alibi):
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
-def handle_gameOver(outcome, rounds, saved, name, murderer):
+def handle_gameOver(result):
 	logger.debug(request.form)
-	if(outcome == 'win'):
-	#if(rounds == 1):
-	#	message = g.sms_client.messages.create(
-	#		body='It only took you 1 round to find the murderer and you saved everyone else involved! Outstanding work Detective ' + name + ', they better give you a raise!',
-	#		from_=yml_configs['twillio']['phone_number'],
-	#		to=request.form['From']
-	#if(rounds > 1):
-		message = g.sms_client.messages.create(
-			body='It took you ' + rounds + ' rounds to find the murderer and you saved ' + saved + ' people. Nice work Detective ' + name + '!',
-			from_=yml_configs['twillio']['phone_number'],
-			to=request.form['From'])
-	if(outcome == 'lose'):
-		message = g.sms_client.messages.create(
-			body='The murderer was actually ' + murderer + '. I am sorry Detective  ' + name + ', at least you got out of there safe and sound.  Better luck next time.',
-			from_=yml_configs['twillio']['phone_number'],
-			to=request.form['From'])
+	
+	message = g.sms_client.messages.create(
+		body=result,
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
