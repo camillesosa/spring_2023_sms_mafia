@@ -51,8 +51,8 @@ def roundDecision(maybeMurderer, isM, susLeft):
 		else:
 			val = 'Oh no! ' + maybeMurderer + ' was not the murderer and you failed to find the murderer in time :('
 	if(isM == 'right'):
-		message = g.sms_client.messages.create(
-			val = 'Excellent job Detective! ' + maybeMurderer + ' was the murderer!'
+		val = 'Excellent job Detective! ' + maybeMurderer + ' was the murderer!'
+	return val
 
 def gameOver(outcome, rounds, saved, name, murderer):
 	if(outcome == 'win'):
