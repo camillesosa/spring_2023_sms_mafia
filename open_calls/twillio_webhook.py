@@ -14,6 +14,7 @@ yml_configs = {}
 BODY_MSGS = []
 
 state = 0
+suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
 
@@ -27,7 +28,7 @@ def introduction():
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 	
-def who():
+def who(suspects):
 	message = g.sms_client.messages.create(
 		body='The suspects are: ' + (*suspects, sep=',') + '. Who do you think the murderer is? (Please enter name exactly as shown)',
 		from_=yml_configs['twillio']['phone_number'],
@@ -36,8 +37,9 @@ def who():
 def handle_request():
 	#main
 	global state
+	global suspects
 	global murderer
-	global round
+	global rounds
 	logger.debug(request.form)
 	#while(state != 5):
 	if(state == 0):
@@ -45,7 +47,7 @@ def handle_request():
 	if(state == 1):
 		handle_welcome(request.form['Body'])
 		killed ='Mrs. White'
-		suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
+		#suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 		murderer = suspects[random.randint(0, 4)]
 		suspects.remove(murderer)
 		rounds = 1
@@ -60,6 +62,7 @@ def handle_request():
 		killLoc = places[random.randint(0, 4)]
 		handle_roundPtOne(killed, weapUsed, killLoc)
 		#add alibis here (might just text all alibis tbh)
+		alibis = ['was with', 'was by myself', 'do not remember']
 		#depending on which name the user texts, change whats passed through handle_alibi
 		#if(asking == murder):
 		#	#send false alibi
@@ -67,7 +70,7 @@ def handle_request():
 		#else:
 		#	#send real alibi
 		#	handle_alibi(suspect, location)
-		who()
+		who(suspects)
 	if(state == 3):
 		maybeMurderer = request.form['Body']
 		logger.debug('They picked ' + maybeMurderer)
