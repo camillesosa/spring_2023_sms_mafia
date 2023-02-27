@@ -29,7 +29,7 @@ def introduction():
 	
 def who():
 	message = g.sms_client.messages.create(
-		body='Who do you think the murderer is?',
+		body='The suspects are: ' + (*suspects, sep=',') + '. Who do you think the murderer is? (Please enter name exactly as shown)',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 	
@@ -73,12 +73,22 @@ def handle_request():
 		logger.debug('They picked ' + maybeMurderer)
 		logger.debug('Murderer is ' + murderer)
 		if(maybeMurderer != murderer):
-			handle_roundPtTwo(maybeMurderer, "wrong", len(suspects)-1)
-			rounds += 1
-			state = 1
+			suspects.remove(maybeMurderer)
+			if(len(suspects)-1 == 1):
+				handle_roundPtTwo(maybeMurderer, "wrong", len(suspects)-1)
+				rounds += 1
+				state = 3
+				outcome = 'lose'
+			if(len(suspects)-1 > 1):
+				handle_roundPtTwo(maybeMurderer, "wrong", len(suspects)-1)
+				rounds += 1
+				state = 1
+				killed = suspects[random.randint(0, len(suspects)-1)]
+				suspects.remove(killed)
 		else:
 			handle_roundPtTwo(maybeMurderer, "right", len(suspects)-1)
 			state = 3
+			outcome = 'win'
 			#handle_roundPtTwo(request.form['Body'])
 	state += 1
 	if(state == 4):
@@ -115,18 +125,19 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 
 def handle_roundPtTwo(maybeMurderer, isM, susLeft):
 	logger.debug(request.form)
-	if(isM == 'wrong' & susLeft > 1):
-		message = g.sms_client.messages.create(
-			#if Suspects array is too small, print different message as player has lost
-			body='Oh no! ' + maybeMurderer + ' was not the murderer! Looks like the murderer is still out there. We need to find them before they attack again!',
-			from_=yml_configs['twillio']['phone_number'],
-			to=request.form['From'])
-	if(isM == 'wrong' & susLeft == 1):
-		message = g.sms_client.messages.create(
-			#if Suspects array is too small, print different message as player has lost
-			body='Oh no! ' + maybeMurderer + ' was not the murderer! You failed to find the murderer in time :(',
-			from_=yml_configs['twillio']['phone_number'],
-			to=request.form['From'])
+	if(isM == 'wrong'):
+		if(susLeft > 1):
+			message = g.sms_client.messages.create(
+				#if Suspects array is too small, print different message as player has lost
+				body='Oh no! ' + maybeMurderer + ' was not the murderer! Looks like the murderer is still out there. We need to find them before they attack again!',
+				from_=yml_configs['twillio']['phone_number'],
+				to=request.form['From'])
+		else:
+			message = g.sms_client.messages.create(
+				#if Suspects array is too small, print different message as player has lost
+				body='Oh no! ' + maybeMurderer + ' was not the murderer and you failed to find the murderer in time :(',
+				from_=yml_configs['twillio']['phone_number'],
+				to=request.form['From'])
 	if(isM == 'right'):
 		message = g.sms_client.messages.create(
 			#if Suspects array is too small, print different message as player has lost
@@ -146,12 +157,23 @@ def handle_alibi(suspect, location):
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
 
-def handle_gameOver():
+def handle_gameOver(outcome, rounds, saved, name, murderer):
 	logger.debug(request.form)
-
-	message = g.sms_client.messages.create(
-		body='Thanks for playing!  Would you like to play again?',
-		from_=yml_configs['twillio']['phone_number'],
-		to=request.form['From'])
+	if(outcome == 'win'):
+		if(rounds == 1):
+			message = g.sms_client.messages.create(
+				body='It only took you 1 round to find the murderer and you saved everyone else involved! Outstanding work Detective ' + name + ', they better give you a raise!',
+				from_=yml_configs['twillio']['phone_number'],
+				to=request.form['From']
+		if(rounds > 1):
+			message = g.sms_client.messages.create(
+				body='It took you ' + rounds + ' rounds to find the murderer and you saved ' + saved + ' people. Nice work Detective ' + name + '!',
+				from_=yml_configs['twillio']['phone_number'],
+				to=request.form['From'])
+	if(outcome == 'lose'):
+		message = g.sms_client.messages.create(
+			body='The murderer was actually ' + murderer + '. I am sorry Detective  ' + name + ', at least you got out of there safe and sound.  Better luck next time.',
+			from_=yml_configs['twillio']['phone_number'],
+			to=request.form['From'])
     	#print(request.form['Body'])
 	return json_response( status = "ok" )
