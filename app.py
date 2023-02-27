@@ -7,7 +7,7 @@ import datetime
 import bcrypt
 import traceback
 
-
+#from BasicMafia import BasicMafia
 from db_con import get_db_instance, get_db
 
 from tools.token_required import token_required
@@ -76,8 +76,7 @@ def exec_proc(proc_name):
     try:
         fn = getattr(__import__('open_calls.'+proc_name), proc_name)
         resp = fn.handle_request()
-        #test = BasicMafia(1);
-        #test.testfunc();
+
     except Exception as err:
         ex_data = str(Exception) + '\n'
         ex_data = ex_data + str(err) + '\n'

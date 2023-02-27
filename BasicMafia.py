@@ -2,40 +2,41 @@ import random
 
 from tools.logging import logger
 
-class BasicMafia:
-  def __init__(self,state):
-    self.state = state
+#class BasicMafia:
+  #def __init__(self,state):
+    #self.state = state
+state = 1
+while(state != 4):
+  if (state == 1):
+    # welcome message
+    PlayerName = 'Cam'
+    # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
+    #name = input after handle_welcome
+    #logger.debug('Thank you Detective', name, ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
+    #maybe pass input from handle_welcome into handle_gameRules for name
+    # suspect names
+    logger.debug('Camella, Camille, Francesca, Luis, and Victor.\n')
+    logger.debug('These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.')
+    # randomly assign one suspect to be the murder
 
-  def testFunc(self):
-    if (self.state == 1):
-      # welcome message
-      # name = input('Welcome Detective! Do you mind confirming your name before I go over the details of the case?\n')
-      logger.debug('Thank you Detective', name,
-            ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! We have narrowed the suspects to five individuals: ')
-      # suspect names
-      logger.debug('Camella, Camille, Francesca, Luis, and Victor.\n')
-      logger.debug(
-        'These five suspects were guests at a dinner party at Hill House, a secluded mansion in New England, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. I will take you to Hill House, so you can take a look at the evidence.')
-      # randomly assign one suspect to be the murder
-
-      # For testing
-      # murderer = 'Camille'
-      killed = 'Steve'
-      suspects = ['Luis', 'Francesca', 'Camella', 'Camille', 'Victor']
-      murderer = suspects[random.randint(0, 4)]
-      # lose if array size < 2
-      rounds = 1
-      state = self.state + 1
+    # For testing
+    killed = 'Mrs. White'
+    suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
+    murderer = suspects[random.randint(0, 4)]
+    suspects.remove(murderer)
+    # lose if array size < 2
+    rounds = 1
+    state = state + 1
 
         
   if (state == 2):
-    print('Victim was...')
-    #Randomly pick murder time, murder weapon, and murder location
-    #For example, murder occured sometime after 3 but before 5, victim was killed with a hammer in the gardens
+    print('Victim was', killed, 'and they were killed with [INSERT WEAPON] at the [INSERT LOCATION].')
+    #Randomly murder weapon and murder location
+    #For example, victim was killed with a hammer in the gardens
         
     #Randomly assign allibis (vague, with some conflicting
-    #For example, Victor was with me in the kitchen at 4, but Victor said he was in the garage
-    #send media files as well
+    #For example, someone says "Victor was with me in the kitchen at the time of the murder", but Victor said he was in the garage
+    #send media files as well for murder weapon and location
         
     voted = "F"
     while (voted != "T"):
@@ -54,23 +55,17 @@ class BasicMafia:
       print("Oh no!", maybeMurderer, "was not the murderer!")
       # look up nickname in citizen array, delete entry
       suspects.remove(maybeMurderer)
-      index = 0
-      while (index < len(suspects)):
-        if (suspects[index] == killed):
-          suspects.remove(killed)
-          index = len(suspects)
-        else:
-          index = index + 1
       if (len(suspects) > 1):
         # move on to next round
-        print('Looks like the murderer is still out there... Hopefully there are no more attacks...')
+        print('Looks like the murderer is still out there. We need to find them before they attack again!')
                 
-        #pick new murder victim randomly                   #ran = random number [1, len(suspects)]
-        #killed = suspects[ran]
+        #pick new murder victim randomly
+        killed = suspects[random.randint(0, len(suspects)-1)]
+        suspects.remove(killed)
         rounds = rounds + 1
         state = 2
-      if (len(suspects) < 2):
-        # mafia wins, go to end state
+      else:
+        # murderer wins, go to end state
         print('Oh no! You failed to find the murderer in time :(\n The murderer was actually', murderer, ':(')
         state = 4
 
