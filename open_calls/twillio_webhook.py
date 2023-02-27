@@ -100,13 +100,13 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 
 def handle_roundPtTwo(maybeMurderer, isM, susLeft):
 	logger.debug(request.form)
-	if(isM == 'wrong' && susLeft > 1):
+	if(isM == 'wrong' & susLeft > 1):
 		message = g.sms_client.messages.create(
 			#if Suspects array is too small, print different message as player has lost
 			body='Oh no! ' + maybeMurderer + ' was not the murderer! Looks like the murderer is still out there. We need to find them before they attack again!',
 			from_=yml_configs['twillio']['phone_number'],
 			to=request.form['From'])
-	if(isM == 'wrong' && susLeft == 1):
+	if(isM == 'wrong' & susLeft == 1):
 		message = g.sms_client.messages.create(
 			#if Suspects array is too small, print different message as player has lost
 			body='Oh no! ' + maybeMurderer + ' was not the murderer! You failed to find the murderer in time :(',
