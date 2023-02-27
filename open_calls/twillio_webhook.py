@@ -70,7 +70,13 @@ def handle_request():
 		#else:
 		#	#send real alibi
 		#	handle_alibi(suspect, location)
-		suspectsStr = (*suspects)
+		i = 0
+		suspectsStr = ''
+		while(i < len(suspects)-1):
+			if(i == len(suspects)-1):
+				suspectsStr = suspectsStr + 'and ' suspects[i] + '.'
+			else:
+				suspectsStr = suspectsStr + suspects[i] + ', '
 		who(suspectsStr)
 	if(state == 3):
 		maybeMurderer = request.form['Body']
