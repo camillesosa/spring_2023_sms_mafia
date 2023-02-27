@@ -66,7 +66,7 @@ def handle_request():
 		who()
 		if(state == 3):
 			maybeMurderer = request.form['Body']
-			logger.debug(maybeMurderer)
+			logger.debug('They picked ' + maybeMurderer)
 			if(maybeMurderer != murderer):
 				handle_roundPtTwo(maybeMurderer, "wrong")
 			else:
