@@ -36,6 +36,7 @@ def who():
 def handle_request():
 	#main
 	global state
+	global murderer
 	logger.debug(request.form)
 	if(state == 0):
 		introduction()
