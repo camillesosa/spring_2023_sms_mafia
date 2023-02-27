@@ -172,16 +172,16 @@ def handle_alibi(suspect, location):
 def handle_gameOver(outcome, rounds, saved, name, murderer):
 	logger.debug(request.form)
 	if(outcome == 'win'):
-		if(rounds == 1):
-			message = g.sms_client.messages.create(
-				body='It only took you 1 round to find the murderer and you saved everyone else involved! Outstanding work Detective ' + name + ', they better give you a raise!',
-				from_=yml_configs['twillio']['phone_number'],
-				to=request.form['From']
-		if(rounds > 1):
-			message = g.sms_client.messages.create(
-				body='It took you ' + rounds + ' rounds to find the murderer and you saved ' + saved + ' people. Nice work Detective ' + name + '!',
-				from_=yml_configs['twillio']['phone_number'],
-				to=request.form['From'])
+	#if(rounds == 1):
+	#	message = g.sms_client.messages.create(
+	#		body='It only took you 1 round to find the murderer and you saved everyone else involved! Outstanding work Detective ' + name + ', they better give you a raise!',
+	#		from_=yml_configs['twillio']['phone_number'],
+	#		to=request.form['From']
+	#if(rounds > 1):
+		message = g.sms_client.messages.create(
+			body='It took you ' + rounds + ' rounds to find the murderer and you saved ' + saved + ' people. Nice work Detective ' + name + '!',
+			from_=yml_configs['twillio']['phone_number'],
+			to=request.form['From'])
 	if(outcome == 'lose'):
 		message = g.sms_client.messages.create(
 			body='The murderer was actually ' + murderer + '. I am sorry Detective  ' + name + ', at least you got out of there safe and sound.  Better luck next time.',
