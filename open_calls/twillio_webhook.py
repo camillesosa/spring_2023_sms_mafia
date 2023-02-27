@@ -139,11 +139,11 @@ def handle_request():
 			handle_alibi(iAlibi)
 		if(alibi == 'was by myself'):
 			alibi = alibi + ' in the ' + places[randomLoc]
-			iAlibi = makeAlibi(suspects[i], alibi)
+			iAlibi = makeAlibi(murderer, alibi)
 			#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 			handle_alibi(iAlibi)
 		if(alibi == 'do not remember'):
-			iAlibi = makeAlibi(suspects[i], alibi)		
+			iAlibi = makeAlibi(murderer, alibi)		
 			#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 			handle_alibi(iAlibi)
 		i = 0
