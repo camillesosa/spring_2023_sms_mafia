@@ -150,7 +150,7 @@ def handle_request():
 		i = 0
 		
 		hearFrom = request.form['Body']
-		heari = characters.find(hearFrom)
+		heari = characters.index(hearFrom)
 		handle_alibi(fullAlibis[heari])
 		suspectsStr = ''
 		while(i < len(characters)):
