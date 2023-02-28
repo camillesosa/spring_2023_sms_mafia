@@ -36,7 +36,7 @@ def introduction():
 	
 def who(suspects):
 	message = g.sms_client.messages.create(
-		body='The suspects are: ' + suspects + ' Who do you think the murderer is? (Please enter name exactly as shown)',
+		body='Who do you think the murderer is? (Please enter name exactly as shown)',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 	
