@@ -16,11 +16,9 @@ BODY_MSGS = []
 state = 0
 suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 characters = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
-places = []
 killed = 'Mrs. White'
-keyClue = 0
 heardAll = 'f'
-iAlibi = ''
+
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
 
@@ -80,8 +78,6 @@ def handle_request():
 	global murderer
 	global rounds
 	global killed
-	global keyClue
-	global places
 	logger.debug(request.form)
 	#while(state != 5):
 	if(state == 0):
@@ -119,6 +115,7 @@ def handle_request():
 	if(state == 4):
 		#result
 		maybeMurderer = request.form['Body']
+		logger.debug('They picked ' + maybeMurderer + ' and the murderer is ' + murderer)
 		if(maybeMurderer == murderer):
 			isM = 'right'
 			state = 14
