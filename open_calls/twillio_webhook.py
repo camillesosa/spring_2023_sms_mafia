@@ -67,6 +67,18 @@ def gameOver(outcome, rounds, saved, name, murderer):
 	if(outcome == 'lose'):
 		val = 'The murderer was actually ' + murderer + '. I am sorry Detective  ' + name + ', at least you got out of there safe and sound.  Better luck next time.'
 	return val
+
+def printList(characters):
+	i = 0
+	suspectsStr = ''
+	while(i < len(characters)):
+		if(i == len(characters)-1):
+			suspectsStr = suspectsStr + 'and ' + characters[i] + '.'
+			i += 1
+		else:
+			suspectsStr = suspectsStr + characters[i] + ', '
+			i += 1
+	return suspectStr
 	
 def handle_request():
 	#main
@@ -171,15 +183,7 @@ def handle_request():
 				heardFrom.remove(request.form['Body'])
 				heard = 't'
 		
-		suspectsStr = ''
-		i = 0
-		while(i < len(characters)):
-			if(i == len(characters)-1):
-				suspectsStr = suspectsStr + 'and ' + characters[i] + '.'
-				i += 1
-			else:
-				suspectsStr = suspectsStr + characters[i] + ', '
-				i += 1
+		suspectStr = printList(characters)
 		who(suspectsStr)
 		state += 1
 	if(state == 4):
