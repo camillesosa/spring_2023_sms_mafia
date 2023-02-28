@@ -252,7 +252,7 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 def handle_roundPtTwo():
 	logger.debug(request.form)
 	message = g.sms_client.messages.create(
-		body='Sargeant: Got it Detective! Keep an eye on them while we solidy everything and prevent another attack.'
+		body='Sargeant: Got it Detective! Keep an eye on them while we solidy everything and prevent another attack.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
