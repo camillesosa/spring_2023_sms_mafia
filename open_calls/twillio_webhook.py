@@ -123,6 +123,7 @@ def handle_request():
 	if(state == 4):
 		#result
 		maybeMurderer = request.form['Body']
+		handle_roundPtTwo()
 		logger.debug('They picked ' + maybeMurderer + ' and the murderer is ' + murderer)
 		if(maybeMurderer == murderer):
 			isM = 'right'
@@ -131,6 +132,7 @@ def handle_request():
 			ism = 'wrong'
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
+		
 		
 	if(state == 5):
 		killed = 'Mr. Green'
