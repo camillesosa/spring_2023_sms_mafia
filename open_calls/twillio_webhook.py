@@ -128,6 +128,9 @@ def handle_request():
 				fullAlibis.insert(c, iAlibi)
 				c += 1
 			else:
+				alibis = ['was with ', 'was by myself', 'do not remember']
+				if(rounds > 1):
+					alibis.remove('do not remember')
 				#false alibi for murderer
 				randomLoc = random.randint(0, 4)
 				while(randomLoc == keyClue):
