@@ -191,7 +191,7 @@ def handle_request():
 			state = 3
 			outcome = 'win'
 			#handle_roundPtTwo(request.form['Body'])
-	state += 1
+		state += 1
 	if(state == 4):
 		endResult = gameOver(outcome, rounds, len(suspects)-1)
 		handle_gameOver(endResult)
