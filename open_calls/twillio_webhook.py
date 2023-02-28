@@ -115,14 +115,14 @@ def handle_request():
 						using = random.randint(0, len(susToUse)-1)
 						alibi = alibi + susToUse[using] + ' in the ' + places[randomLoc]
 						susToUse.remove(susToUse[using])
-						iAlibi = makeAlibi(suspects[i], alibi)
+						iAlibi = makeAlibi(characters[c], alibi)
 						#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 				if(alibi == 'was by myself'):
 					alibi = alibi + ' in the ' + places[randomLoc]
-					iAlibi = makeAlibi(murderer, alibi)
+					iAlibi = makeAlibi(characters[c], alibi)
 					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 				if(alibi == 'do not remember'):
-					iAlibi = makeAlibi(murderer, alibi)
+					iAlibi = makeAlibi(characters[c], alibi)
 					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 				#handle_alibi(iAlibi)
 				fullAlibis.insert(c)
