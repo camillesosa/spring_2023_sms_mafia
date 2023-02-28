@@ -125,7 +125,7 @@ def handle_request():
 					iAlibi = makeAlibi(characters[c], alibi)
 					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 				#handle_alibi(iAlibi)
-				fullAlibis.insert(c)
+				fullAlibis.insert(c, iAlibi)
 				c += 1
 			else:
 				#false alibi for murderer
@@ -145,7 +145,7 @@ def handle_request():
 					iAlibi = makeAlibi(murderer, alibi)		
 					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
 				#handle_alibi(iAlibi)
-				fullAlibis.insert(c)
+				fullAlibis.insert(c, iAlibi)
 				c += 1
 		i = 0
 		
