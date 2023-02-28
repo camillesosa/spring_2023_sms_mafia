@@ -123,7 +123,7 @@ def handle_request():
 	if(state == 4):
 		#result
 		maybeMurderer = request.form['Body']
-		handle_roundPtTwo()
+		handle_guessConfirm()
 		logger.debug('They picked ' + maybeMurderer + ' and the murderer is ' + murderer)
 		if(maybeMurderer == murderer):
 			isM = 'right'
@@ -132,6 +132,7 @@ def handle_request():
 			ism = 'wrong'
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
+		handle_roundPtTwo(result)
 		
 		
 	if(state == 5):
@@ -268,10 +269,19 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 
-def handle_roundPtTwo():
+def handle_guessConfirm():
 	logger.debug(request.form)
 	message = g.sms_client.messages.create(
 		body='Sargeant: Got it Detective! Keep an eye on them while we solidy everything and prevent another attack.',
+		from_=yml_configs['twillio']['phone_number'],
+		to=request.form['From'])
+    	#print(request.form['Body'])
+	return json_response( status = "ok" )
+	
+def handle_roundPtTwo(result):
+	logger.debug(request.form)
+	message = g.sms_client.messages.create(
+		body=result,
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
