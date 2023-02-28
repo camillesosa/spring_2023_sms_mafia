@@ -19,6 +19,7 @@ characters = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Co
 places = []
 killed = 'Mrs. White'
 keyClue = 0
+heardAll = 'f'
 iAlibi = ''
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
@@ -172,7 +173,7 @@ def handle_request():
 				#handle_alibi(iAlibi)
 				fullAlibis.insert(c, iAlibi)
 				c += 1
-		heardAll = 'f'
+		global heardAll
 		heardFrom = characters
 		while(len(heardFrom) != 0):
 			hearFrom = request.form['Body']
