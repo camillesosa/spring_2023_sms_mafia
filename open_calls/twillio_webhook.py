@@ -241,7 +241,7 @@ def handle_request():
 		else:
 			ism = 'wrong'
 			rounds += 1
-			outcome = 'lose;
+			outcome = 'lose'
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		state += 1
 		
