@@ -183,7 +183,8 @@ def handle_request():
 				handle_alibi(fullAlibis[heari])
 				heardFrom.remove(request.form['Body'])
 				heard = 't'
-				heardAll = 't'
+		if(len(heardFrom) == 0):
+			heardAll = 't'
 		
 		suspectStr = printList(characters)
 		who(suspectsStr)
