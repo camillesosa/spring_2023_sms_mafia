@@ -157,7 +157,7 @@ def handle_request():
 			hearFrom = request.form['Body']
 			heari = characters.index(hearFrom)
 			handle_alibi(fullAlibis[heari])
-			i + = 1
+			i += 1
 		
 		suspectsStr = ''
 		i = 0
