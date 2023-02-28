@@ -115,8 +115,10 @@ def handle_request():
 		who()
 		if(hit == 'now'):
 			state += 1
+			move = 'yes'
 		hit = 'now'
-		state += 1
+		if (move == 'yes'):
+			state += 1
 		
 	if(state == 4):
 		#result
@@ -154,7 +156,7 @@ def handle_request():
 			state += 1
 			move = 'yes'
 		hit = 'now'
-		if (move = 'yes'):
+		if (move == 'yes'):
 			state += 1
 		
 	if(state == 7):
