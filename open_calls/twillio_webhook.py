@@ -152,7 +152,7 @@ def handle_request():
 				c += 1
 		i = 0
 		
-		hearFrom = roundPtOne.form['Body']
+		hearFrom = request.form['Body']
 		heari = characters.index(hearFrom)
 		handle_alibi(fullAlibis[heari])
 		suspectsStr = ''
