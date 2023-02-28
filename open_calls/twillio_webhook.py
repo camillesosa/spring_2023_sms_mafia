@@ -139,6 +139,7 @@ def handle_request():
 		killLoc = 'study'
 		handle_roundPtOne(killed, weapUsed, killLoc)
 		state += 1
+		hit = 0
 		
 	if(state == 6):
 		scarAlibi = "Miss Scarlet: I was in the kitchen this time, I saw Col. Mustard in there too. Please hurry detective, I'm getting scared!"
@@ -150,14 +151,10 @@ def handle_request():
 		mustAlibi = "Colonel Mustard: I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
 		handle_alibi(mustAlibi)
 		
-		hit = 'no'
 		who()
-		if(hit == 'now'):
+		if(hit > 0):
 			state += 1
-			move = 'yes'
-		hit = 'now'
-		if (move == 'yes'):
-			state += 1
+		hit += 1
 		
 	if(state == 7):
 		#result
@@ -177,6 +174,7 @@ def handle_request():
 		killLoc = 'kitchen'
 		handle_roundPtOne(killed, weapUsed, killLoc)
 		state += 1
+		hit = 0
 		
 	if(state == 9):
 		scarAlibi = "Miss Scarlet: I can't believe Mrs. Peacock is dead... She was a nice lady... I think I was in the library with Professor Plum around that time. Please save us detective!"
@@ -186,11 +184,10 @@ def handle_request():
 		mustAlibi = "Colonel Mustard: You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
 		handle_alibi(mustAlibi)
 		
-		hit = 'no'
 		who()
-		if(hit == 'now'):
+		if(hit > 0):
 			state += 1
-		hit = 'now'
+		hit += 1
 		
 	if(state == 10):
 		#result
@@ -210,6 +207,7 @@ def handle_request():
 		killLoc = 'garage'
 		handle_roundPtOne(killed, weapUsed, killLoc)
 		state += 1
+		hit = 0
 		
 	if(state == 12):
 		scarAlibi = "Miss Scarlet: It wasn't me! Oh please believe me detective! Professor Plum must've done it!"
@@ -217,11 +215,10 @@ def handle_request():
 		plumAlibi = "Professor Plum: Arrest Miss Scarlet immediately! She's clearly the culprit!"
 		handle_alibi(plumAlibi)
 		
-		hit = 'no'
 		who()
-		if(hit == 'now'):
+		if(hit > 0):
 			state += 1
-		hit = 'now'
+		hit += 1
 		
 	if(state == 13):
 		#result
