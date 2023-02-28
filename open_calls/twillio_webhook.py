@@ -258,13 +258,7 @@ def handle_request():
 	if(state == 14):
 		endResult = gameOver(outcome, rounds, name, murderer)
 		handle_gameOver(endResult)
-		#would you like to play again? yes/no?
-		#playA = request.form['Body']
-		#if(playA == 'yes' | 'Yes'):
-		#	state = 1
-		#else:
-		#	state = 15
-			#end
+		
 	if(state == 0):
 		state += 1
 	return json_response( status = "ok" )
