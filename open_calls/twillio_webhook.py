@@ -152,15 +152,16 @@ def handle_request():
 				#handle_alibi(iAlibi)
 				fullAlibis.insert(c, iAlibi)
 				c += 1
-		i = 0
-		while(i < len(characters)):
+		heardAll = 'f'
+		heardFrom = characters
+		while(len(heardFrom) != 0):
 			hearFrom = request.form['Body']
 			heari = characters.index(hearFrom)
 			heard = 'f'
 			if(heard != 't'):
 				handle_alibi(fullAlibis[heari])
-			heard = 't'
-			i += 1
+				heardFrom.remove(request.form['Body'])
+				heard = 't'
 		
 		suspectsStr = ''
 		i = 0
