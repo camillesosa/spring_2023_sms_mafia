@@ -152,7 +152,10 @@ def handle_request():
 		who()
 		if(hit == 'now'):
 			state += 1
+			move = 'yes'
 		hit = 'now'
+		if (move = 'yes'):
+			state += 1
 		
 	if(state == 7):
 		#result
