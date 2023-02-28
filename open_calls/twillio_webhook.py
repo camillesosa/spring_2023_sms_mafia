@@ -102,15 +102,15 @@ def handle_request():
 		
 		state += 1
 	if(state == 3):
-		scarAlibi = "I'm not too sure... I think I was in the gardens at the time of the murder. Oh! Yes I was! I was in the gardens talking with the gardeners. You could ask them, but you already told them to leave, huh?"
+		scarAlibi = "Miss Scarlet: I'm not too sure... I think I was in the gardens at the time of the murder. Oh! Yes I was! I was in the gardens talking with the gardeners. You could ask them, but you already told them to leave, huh?"
 		handle_alibi(scarAlibi)
-		plumAlibi = "I was in the study of course! Huh? Someone to back up my alibi... well I was alone so..."
+		plumAlibi = "Professor Plum: I was in the study of course! Huh? Someone to back up my alibi... well I was alone so..."
 		handle_alibi(plumAlibi)
-		peacAlibi = "I don't remember... I mean I could've been anywhere during that time! Why are you asking me anyways?! I'm obviously not the murderer!"
+		peacAlibi = "Mrs. Peacock: I don't remember... I mean I could've been anywhere during that time! Why are you asking me anyways?! I'm obviously not the murderer!"
 		handle_alibi(peacAlibi)
-		greeAlibi = "I was in the garage I believe. I might've seen someone else come in, one of the girls for sure... Huh? No, I don't think they saw me."
+		greeAlibi = "Mr. Green: I was in the garage I believe. I might've seen someone else come in, one of the girls for sure... Huh? No, I don't think they saw me."
 		handle_alibi(greeAlibi)
-		mustAlibi = "I decline to answer. I can't believe you're even asking me! You better find the murderer quick, he's probably dangerous!"
+		mustAlibi = "Colonel Mustard: I decline to answer. I can't believe you're even asking me! You better find the murderer quick, he's probably dangerous!"
 		handle_alibi(mustAlibi)
 		
 		who()
@@ -120,10 +120,10 @@ def handle_request():
 		#result
 		maybeMurderer = request.form['Body']
 		if(maybeMurderer == murderer):
-			isM = right
+			isM = 'right'
 			state = 14
 		else:
-			ism = wrong
+			ism = 'wrong'
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		
@@ -136,13 +136,13 @@ def handle_request():
 		state += 1
 		
 	if(state == 6):
-		scarAlibi = "I was in the kitchen this time, I saw Col. Mustard in there too. Please hurry detective, I'm getting scared!"
+		scarAlibi = "Miss Scarlet: I was in the kitchen this time, I saw Col. Mustard in there too. Please hurry detective, I'm getting scared!"
 		handle_alibi(scarAlibi)
-		plumAlibi = "I was with Mrs. Peacock in the gardens. Check with her if you don't believe me. And make it quick! I don't want to be next."
+		plumAlibi = "Professor Plum: I was with Mrs. Peacock in the gardens. Check with her if you don't believe me. And make it quick! I don't want to be next."
 		handle_alibi(plumAlibi)
-		peacAlibi = "My memory is poor, sorry, but I think I was in the gardens. Did I see Professor Plum? Well I know I was talking to a gentleman... Was it him? Oh I'm sorry, I just can't remember."
+		peacAlibi = "Mrs. Peacock: My memory is poor, sorry, but I think I was in the gardens. Did I see Professor Plum? Well I know I was talking to a gentleman... Was it him? Oh I'm sorry, I just can't remember."
 		handle_alibi(peacAlibi)
-		mustAlibi = "I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
+		mustAlibi = "Colonel Mustard: I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
 		handle_alibi(mustAlibi)
 		
 		who()
@@ -152,10 +152,10 @@ def handle_request():
 		#result
 		maybeMurderer = request.form['Body']
 		if(maybeMurderer == murderer):
-			isM = right
+			isM = 'right'
 			state = 14
 		else:
-			ism = wrong
+			ism = 'wrong'
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		
@@ -168,11 +168,11 @@ def handle_request():
 		state += 1
 		
 	if(state == 9):
-		scarAlibi = "I can't believe Mrs. Peacock is dead... She was a nice lady... I think I was in the library with Professor Plum around that time. Please save us detective!"
+		scarAlibi = "Miss Scarlet: I can't believe Mrs. Peacock is dead... She was a nice lady... I think I was in the library with Professor Plum around that time. Please save us detective!"
 		handle_alibi(scarAlibi)
-		plumAlibi = "That poor old lady... What? Oh, I was in the library. I don't remember seeing anyone else, but it is quite large."
+		plumAlibi = "Professor Plum: That poor old lady... What? Oh, I was in the library. I don't remember seeing anyone else, but it is quite large."
 		handle_alibi(plumAlibi)
-		mustAlibi = "You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
+		mustAlibi = "Colonel Mustard: You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
 		handle_alibi(mustAlibi)
 		
 		who()
@@ -182,10 +182,10 @@ def handle_request():
 		#result
 		maybeMurderer = request.form['Body']
 		if(maybeMurderer == murderer):
-			isM = right
+			isM = 'right'
 			state = 14
 		else:
-			ism = wrong
+			ism = 'wrong'
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		
@@ -198,9 +198,9 @@ def handle_request():
 		state += 1
 		
 	if(state == 12):
-		scarAlibi = "It wasn't me! Oh please believe me detective! Professor Plum must've done it!"
+		scarAlibi = "Miss Scarlet: It wasn't me! Oh please believe me detective! Professor Plum must've done it!"
 		handle_alibi(scarAlibi)
-		plumAlibi = "Arrest Miss Scarlet immediately! She's clearly the culprit!"
+		plumAlibi = "Professor Plum: Arrest Miss Scarlet immediately! She's clearly the culprit!"
 		handle_alibi(plumAlibi)
 		
 		who()
@@ -210,9 +210,9 @@ def handle_request():
 		#result
 		maybeMurderer = request.form['Body']
 		if(maybeMurderer == murderer):
-			isM = right
+			isM = 'right'
 		else:
-			ism = wrong
+			ism = 'wrong'
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		state += 1
 		
