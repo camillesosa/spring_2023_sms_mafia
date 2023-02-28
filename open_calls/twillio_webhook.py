@@ -25,7 +25,8 @@ def handle_request():
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
-		body=random.choice(all_file.splitlines()),
-		from_=yml_configs['twillio']['phone_number'],
-		to=request.form['From'])
+			body=random.choice(all_file.splitlines()),
+			from_=yml_configs['twillio']['phone_number'],
+			to=request.form['From'])
+
 	return json_response( status = "ok" )
