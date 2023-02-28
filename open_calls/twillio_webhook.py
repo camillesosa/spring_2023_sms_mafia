@@ -38,7 +38,7 @@ def introduction():
 	
 def who():
 	message = g.sms_client.messages.create(
-		body='Who do you think the murderer is? (Please enter name exactly as shown)',
+		body='Sergeant Watts:      Who do you think the murderer is? (Please enter name exactly as shown)',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 
@@ -152,13 +152,13 @@ def handle_request():
 		
 	if(state == 6):
 		if(hit == 0):
-			scarAlibi = "Miss Scarlet: I was in the kitchen this time, I saw Col. Mustard in there too. Please hurry detective, I'm getting scared!"
+			scarAlibi = "Miss Scarlet:      I was in the kitchen this time, I saw Col. Mustard in there too. Please hurry detective, I'm getting scared!"
 			handle_alibi(scarAlibi)
-			plumAlibi = "Professor Plum: I was with Mrs. Peacock in the gardens. Check with her if you don't believe me. And make it quick! I don't want to be next."
+			plumAlibi = "Professor Plum:      I was with Mrs. Peacock in the gardens. Check with her if you don't believe me. And make it quick! I don't want to be next."
 			handle_alibi(plumAlibi)
-			peacAlibi = "Mrs. Peacock: My memory is poor, sorry, but I think I was in the gardens. Did I see Professor Plum? Well I know I was talking to a gentleman... Was it him? Oh I'm sorry, I just can't remember."
+			peacAlibi = "Mrs. Peacock:      My memory is poor, sorry, but I think I was in the gardens. Did I see Professor Plum? Well I know I was talking to a gentleman... Was it him? Oh I'm sorry, I just can't remember."
 			handle_alibi(peacAlibi)
-			mustAlibi = "Colonel Mustard: I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
+			mustAlibi = "Colonel Mustard:      I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
 			handle_alibi(mustAlibi)
 		
 			who()
@@ -192,11 +192,11 @@ def handle_request():
 		
 	if(state == 9):
 		if(hit == 0):
-			scarAlibi = "Miss Scarlet: I can't believe Mrs. Peacock is dead... She was a nice lady... I think I was in the library with Professor Plum around that time. Please save us detective!"
+			scarAlibi = "Miss Scarlet:      I can't believe Mrs. Peacock is dead... She was a nice lady... I think I was in the library with Professor Plum around that time. Please save us detective!"
 			handle_alibi(scarAlibi)
-			plumAlibi = "Professor Plum: That poor old lady... What? Oh, I was in the library. I don't remember seeing anyone else, but it is quite large."
+			plumAlibi = "Professor Plum:      That poor old lady... What? Oh, I was in the library. I don't remember seeing anyone else, but it is quite large."
 			handle_alibi(plumAlibi)
-			mustAlibi = "Colonel Mustard: You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
+			mustAlibi = "Colonel Mustard:      You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
 			handle_alibi(mustAlibi)
 		
 			who()
@@ -230,9 +230,9 @@ def handle_request():
 		
 	if(state == 12):
 		if(hit == 0):
-			scarAlibi = "Miss Scarlet: It wasn't me! Oh please believe me detective! Professor Plum must've done it!"
+			scarAlibi = "Miss Scarlet:      It wasn't me! Oh please believe me detective! Professor Plum must've done it!"
 			handle_alibi(scarAlibi)
-			plumAlibi = "Professor Plum: Arrest Miss Scarlet immediately! She's clearly the culprit!"
+			plumAlibi = "Professor Plum:      Arrest Miss Scarlet immediately! She's clearly the culprit!"
 			handle_alibi(plumAlibi)
 		
 			who()
@@ -273,7 +273,7 @@ def handle_welcome(name):
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
-		body='Sergeant Watts: Thank you Detective ' + name + ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! The victim is Mrs. White, and we have narrowed the suspects to five individuals: Miss Scarlet, Professor Plum, Mrs. Peacock, Mr. Green, and Colonel Mustard. These five suspects were guests at a dinner party at Mountain Manor, a secluded mansion here in California, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. One of the guests is definitely the traitor, you just have to find out which one it is! I will take you to the manor, so you can take a look at the evidence and everyones alibis.',
+		body='Sergeant Watts:      Thank you Detective ' + name + ', we are happy to have you on this case. Unfortunately, there seems to be a killer on the loose! The victim is Mrs. White, and we have narrowed the suspects to five individuals: Miss Scarlet, Professor Plum, Mrs. Peacock, Mr. Green, and Colonel Mustard. These five suspects were guests at a dinner party at Mountain Manor, a secluded mansion here in California, where the murder took place. In an attempt to prevent escape, we have asked all the guests to stay there while we attempt to find the murderer, but the longer we take to find the murderer, the longer the innocents are in danger of also being attacked. One of the guests is definitely the traitor, you just have to find out which one it is! I will take you to the manor, so you can take a look at the evidence and everyones alibis.',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
@@ -284,7 +284,7 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 	logger.debug(request.form)
 
 	message = g.sms_client.messages.create(
-		body='The victim was ' + killed + '. ' + killed + ' was killed with a ' + weapUsed + ' in the ' + killLoc + '. Who would you like to hear from?',
+		body='Looking at the evidence, you find that the victim was ' + killed + '. ' + killed + ' was killed with a ' + weapUsed + ' in the ' + killLoc + '. Next, you ask the suspects for their alibis...',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 
