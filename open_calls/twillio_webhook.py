@@ -178,7 +178,7 @@ def handle_request():
 		who()
 		state += 1
 		
-	if(state = 10):
+	if(state == 10):
 		#result
 		maybeMurderer = request.form['Body']
 		if(maybeMurderer == murderer):
