@@ -111,14 +111,11 @@ def handle_request():
 		mustAlibi = "Colonel Mustard: I decline to answer. I can't believe you're even asking me! You better find the murderer quick, he's probably dangerous!"
 		handle_alibi(mustAlibi)
 		
-		hit = 'no'
+		hit = 0
 		who()
-		if(hit == 'now'):
+		if(hit > 0):
 			state += 1
-			move = 'yes'
-		hit = 'now'
-		if (move == 'yes'):
-			state += 1
+		hit += 1
 		
 	if(state == 4):
 		#result
