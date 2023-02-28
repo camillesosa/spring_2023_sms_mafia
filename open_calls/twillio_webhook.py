@@ -17,6 +17,7 @@ state = 0
 suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 characters = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 killed = 'Mrs. White'
+keyClue = 0
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
 
@@ -73,6 +74,7 @@ def handle_request():
 	global murderer
 	global rounds
 	global killed
+	global keyClue
 	logger.debug(request.form)
 	#while(state != 5):
 	if(state == 0):
