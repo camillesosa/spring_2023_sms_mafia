@@ -153,11 +153,14 @@ def handle_request():
 				fullAlibis.insert(c, iAlibi)
 				c += 1
 		i = 0
+		while(i < len(characters):
+		      hearFrom = request.form['Body']
+			heari = characters.index(hearFrom)
+			handle_alibi(fullAlibis[heari])
+		      i + = 1
 		
-		hearFrom = request.form['Body']
-		heari = characters.index(hearFrom)
-		handle_alibi(fullAlibis[heari])
 		suspectsStr = ''
+		i = 0
 		while(i < len(characters)):
 			if(i == len(characters)-1):
 				suspectsStr = suspectsStr + 'and ' + characters[i] + '.'
