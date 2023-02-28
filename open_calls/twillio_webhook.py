@@ -16,6 +16,7 @@ BODY_MSGS = []
 state = 0
 suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 characters = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
+killed = 'Mrs. White'
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
 
@@ -71,13 +72,14 @@ def handle_request():
 	global characters
 	global murderer
 	global rounds
+	global killed
 	logger.debug(request.form)
 	#while(state != 5):
 	if(state == 0):
 		introduction()
 	if(state == 1):
 		handle_welcome(request.form['Body'])
-		killed ='Mrs. White'
+		#killed ='Mrs. White'
 		#suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 		#characters = suspects
 		murderer = suspects[random.randint(0, 4)]
