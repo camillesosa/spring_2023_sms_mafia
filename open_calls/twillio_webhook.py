@@ -171,13 +171,13 @@ def handle_request():
 		if(maybeMurderer != murderer):
 			suspects.remove(maybeMurderer)
 			characters.remove(maybeMurderer)
-			if(len(suspects)-1 == 1):
+			if(len(suspects) == 0):
 				result = roundDecision(maybeMurderer, "wrong", len(suspects)-1)
 				handle_roundPtTwo(result)
 				rounds += 1
 				state = 3
 				outcome = 'lose'
-			if(len(suspects)-1 > 1):
+			if(len(suspects) > 0):
 				roundDecision(maybeMurderer, "wrong", len(suspects)-1)
 				handle_roundPtTwo(result)
 				rounds += 1
