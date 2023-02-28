@@ -101,6 +101,7 @@ def handle_request():
 		handle_roundPtOne(killed, weapUsed, killLoc)
 		state += 1
 	if(state == 3):
+		global iAlibi = ''
 		#add alibis here (might just text all alibis tbh)
 		#assign result of random generator to list with coresponding indexes
 		fullAlibis = []
