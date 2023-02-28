@@ -153,7 +153,7 @@ def handle_request():
 				fullAlibis.insert(c, iAlibi)
 				c += 1
 		i = 0
-		while(i < len(characters):
+		while(i < len(characters)):
 		      hearFrom = request.form['Body']
 			heari = characters.index(hearFrom)
 			handle_alibi(fullAlibis[heari])
