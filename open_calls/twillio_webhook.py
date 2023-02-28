@@ -116,6 +116,7 @@ def handle_request():
 		if(hit == 'now'):
 			state += 1
 		hit = 'now'
+		state += 1
 		
 	if(state == 4):
 		#result
