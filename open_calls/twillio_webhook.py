@@ -19,6 +19,7 @@ characters = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Co
 places = []
 killed = 'Mrs. White'
 keyClue = 0
+iAlibi = ''
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
 
@@ -101,7 +102,7 @@ def handle_request():
 		handle_roundPtOne(killed, weapUsed, killLoc)
 		state += 1
 	if(state == 3):
-		global iAlibi = ''
+		global iAlibi
 		#add alibis here (might just text all alibis tbh)
 		#assign result of random generator to list with coresponding indexes
 		fullAlibis = []
