@@ -34,25 +34,16 @@ def introduction():
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 	
-def who(suspects):
+def who():
 	message = g.sms_client.messages.create(
 		body='Who do you think the murderer is? (Please enter name exactly as shown)',
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
-	
-def makeAlibi(suspect, status):
-	if(status == 'do not remember'):
-		additions = ['Sorry...', "Why are you asking me anyways?! I'm not the murderer!", "I wouldn't tell you anyways."] 
-		alibi = suspect + ': I ' + status + '... ' + additions[random.randint(0, 2)]
-	else:
-		additions = ["You don't think it was me, right?", "But why are you asking me? I didn't do it!", "Please find the killer soon, I'm scared!"]
-		alibi = suspect + ': I ' + status + ' at the time of the murder. ' + additions[random.randint(0, 2)]
-	return alibi
 
 def roundDecision(maybeMurderer, isM, susLeft):
 	if(isM == 'wrong'):
 		if(susLeft > 1):
-			val = 'Oh no! ' + maybeMurderer + ' was not the murderer! Looks like the murderer is still out there. We need to find them before they attack again!'
+			val = 'Oh no! There was another attack. Looks like ' + maybeMurderer + ' was not the murderer. Lets take a look at the new evidence.'
 		else:
 			val = 'Oh no! ' + maybeMurderer + ' was not the murderer and you failed to find the murderer in time :('
 	if(isM == 'right'):
@@ -100,125 +91,132 @@ def handle_request():
 		#killed ='Mrs. White'
 		#suspects = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Colonel Mustard']
 		#characters = suspects
-		murderer = suspects[random.randint(0, 4)]
-		suspects.remove(murderer)
+		murderer = 'Miss Scarlet'
 		rounds = 1
 		state += 1
 	if(state == 2):
-		#victim, murder weapon, location, and time change each round
-		weapons = ['hammer', 'kitchen knife', 'shovel', 'book', 'pen']
-		keyClue = random.randint(0, 4)
-		places = ['garage', 'kitchen', 'gardens', 'library', 'study']
-		#use keyClue for murder weapon and murderer (true location)
-		weapUsed = weapons[keyClue]
-		killLoc = places[random.randint(0, 4)]
+		killed = 'Mrs. White'
+		weapUsed = 'hammer'
+		killLoc = 'library'
 		handle_roundPtOne(killed, weapUsed, killLoc)
+		
 		state += 1
 	if(state == 3):
-		global iAlibi
-		#add alibis here (might just text all alibis tbh)
-		#assign result of random generator to list with coresponding indexes
-		fullAlibis = []
-		#alibis for inocent suspects
-		c = 0
-		while(c < len(characters)):
-			if(characters[c] != murderer):
-				alibis = ['was with ', 'was by myself', 'do not remember']
-				if(rounds > 1):
-					alibis.remove('do not remember')
-				susToUse = suspects
-				randomLoc = random.randint(0, 4)
-				while(randomLoc == keyClue):
-					randomLoc = random.randint(0, 4)
-				alibi = alibis[random.randint(0, len(alibis)-1)]
-				if(alibi == 'was with '):
-					if(len(susToUse) == 0):
-						alibi = 'was by myself'
-					else:
-						using = random.randint(0, len(susToUse)-1)
-						alibi = alibi + susToUse[using] + ' in the ' + places[randomLoc]
-						susToUse.remove(susToUse[using])
-						iAlibi = makeAlibi(characters[c], alibi)
-						#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
-				if(alibi == 'was by myself'):
-					alibi = alibi + ' in the ' + places[randomLoc]
-					iAlibi = makeAlibi(characters[c], alibi)
-					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
-				if(alibi == 'do not remember'):
-					iAlibi = makeAlibi(characters[c], alibi)
-					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
-				#handle_alibi(iAlibi)
-				fullAlibis.insert(c, iAlibi)
-				c += 1
-			else:
-				alibis = ['was with ', 'was by myself', 'do not remember']
-				if(rounds > 1):
-					alibis.remove('do not remember')
-				#false alibi for murderer
-				randomLoc = random.randint(0, 4)
-				while(randomLoc == keyClue):
-					randomLoc = random.randint(0, 4)
-				alibi = alibis[random.randint(0, len(alibis)-1)]
-				if(alibi == 'was with'):
-					alibi = alibi + suspects[random.randint(0, len(suspects)-1)] + ' in the ' + places[randomLoc]
-					iAlibi = makeAlibi(murderer, alibi)
-					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
-				if(alibi == 'was by myself'):
-					alibi = alibi + ' in the ' + places[randomLoc]
-					iAlibi = makeAlibi(murderer, alibi)
-					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
-				if(alibi == 'do not remember'):
-					iAlibi = makeAlibi(murderer, alibi)		
-					#make handle_alibi call for each specific suspect, if possible, have user input name of suspect that they want to hear from
-				#handle_alibi(iAlibi)
-				fullAlibis.insert(c, iAlibi)
-				c += 1
-		global heardAll
-		heardFrom = characters
-		while(len(heardFrom) != 0):
-			hearFrom = request.form['Body']
-			heari = characters.index(hearFrom)
-			heard = 'f'
-			if(heard != 't'):
-				handle_alibi(fullAlibis[heari])
-				heardFrom.remove(request.form['Body'])
-				heard = 't'
-		if(len(heardFrom) == 0):
-			heardAll = 't'
+		scarAlibi = "I'm not too sure... I think I was in the gardens at the time of the murder. Oh! Yes I was! I was in the gardens talking with the gardeners. You could ask them, but you already told them to leave, huh?"
+		handle_alibi(scarAlibi)
+		plumAlibi = "I was in the study of course! Huh? Someone to back up my alibi... well I was alone so..."
+		handle_alibi(plumAlibi)
+		peacAlibi = "I don't remember... I mean I could've been anywhere during that time! Why are you asking me anyways?! I'm obviously not the murderer!"
+		handle_alibi(peacAlibi)
+		greeAlibi = "I was in the garage I believe. I might've seen someone else come in, one of the girls for sure... Huh? No, I don't think they saw me."
+		handle_alibi(greeAlibi)
+		mustAlibi = "I decline to answer. I can't believe you're even asking me! You better find the murderer quick, he's probably dangerous!"
+		handle_alibi(mustAlibi)
 		
-		suspectStr = printList(characters)
-		who(suspectsStr)
+		who()
 		state += 1
+		
 	if(state == 4):
-		if(heardAll == 't'):
-			maybeMurderer = request.form['Body']
-			logger.debug('They picked ' + maybeMurderer)
-			logger.debug('Murderer is ' + murderer)
-			if(maybeMurderer != murderer):
-				suspects.remove(maybeMurderer)
-				characters.remove(maybeMurderer)
-				if(len(suspects) == 0):
-					result = roundDecision(maybeMurderer, "wrong", len(suspects)-1)
-					handle_roundPtTwo(result)
-					rounds += 1
-					state = 3
-					outcome = 'lose'
-				if(len(suspects) > 0):
-					roundDecision(maybeMurderer, "wrong", len(suspects)-1)
-					handle_roundPtTwo(result)
-					rounds += 1
-					state = 1
-					killed = suspects[random.randint(0, len(suspects)-1)]
-					suspects.remove(killed)
-					characters.remove(killed)
-			else:
-				roundDecision(maybeMurderer, "right", len(suspects)-1)
-				handle_roundPtTwo(result)
-				state = 3
-				outcome = 'win'
-				#handle_roundPtTwo(request.form['Body'])
+		#result
+		maybeMurderer = request.form['Body']
+		if(maybeMurderer == murderer):
+			isM = right
+			state = 14
+		else:
+			ism = wrong
 			state += 1
+		result = roundDecision(maybeMurderer, isM, len(characters))
+		
 	if(state == 5):
+		killed = 'Mr. Green'
+		characters.remove('Mr. Green')
+		weapUsed = 'knife'
+		killLoc = 'study'
+		handle_roundPtOne(killed, weapUsed, killLoc)
+		state += 1
+		
+	if(state == 6):
+		scarAlibi = "I was in the kitchen this time, I saw Col. Mustard in there too. Please hurry detective, I'm getting scared!"
+		handle_alibi(scarAlibi)
+		plumAlibi = "I was with Mrs. Peacock in the gardens. Check with her if you don't believe me. And make it quick! I don't want to be next."
+		handle_alibi(plumAlibi)
+		peacAlibi = "My memory is poor, sorry, but I think I was in the gardens. Did I see Professor Plum? Well I know I was talking to a gentleman... Was it him? Oh I'm sorry, I just can't remember."
+		handle_alibi(peacAlibi)
+		mustAlibi = "I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
+		handle_alibi(mustAlibi)
+		
+		who()
+		state += 1
+		
+	if(state == 7):
+		#result
+		maybeMurderer = request.form['Body']
+		if(maybeMurderer == murderer):
+			isM = right
+			state = 14
+		else:
+			ism = wrong
+			state += 1
+		result = roundDecision(maybeMurderer, isM, len(characters))
+		
+	if(state == 8):
+		killed = 'Mrs. Peacock'
+		characters.remove('Mrs. Peacock')
+		weapUsed = 'book'
+		killLoc = 'kitchen'
+		handle_roundPtOne(killed, weapUsed, killLoc)
+		state += 1
+		
+	if(state == 9):
+		scarAlibi = "I can't believe Mrs. Peacock is dead... She was a nice lady... I think I was in the library with Professor Plum around that time. Please save us detective!"
+		handle_alibi(scarAlibi)
+		plumAlibi = "That poor old lady... What? Oh, I was in the library. I don't remember seeing anyone else, but it is quite large."
+		handle_alibi(plumAlibi)
+		mustAlibi = "You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
+		handle_alibi(mustAlibi)
+		
+		who()
+		state += 1
+		
+	if(state = 10):
+		#result
+		maybeMurderer = request.form['Body']
+		if(maybeMurderer == murderer):
+			isM = right
+			state = 14
+		else:
+			ism = wrong
+			state += 1
+		result = roundDecision(maybeMurderer, isM, len(characters))
+		
+	if(state == 11):
+		killed = 'Colonel Mustard'
+		characters.remove('Colonel Mustard')
+		weapUsed = 'shovel'
+		killLoc = 'garage'
+		handle_roundPtOne(killed, weapUsed, killLoc)
+		state += 1
+		
+	if(state == 12):
+		scarAlibi = "It wasn't me! Oh please believe me detective! Professor Plum must've done it!"
+		handle_alibi(scarAlibi)
+		plumAlibi = "Arrest Miss Scarlet immediately! She's clearly the culprit!"
+		handle_alibi(plumAlibi)
+		
+		who()
+		state += 1
+		
+	if(state == 13):
+		#result
+		maybeMurderer = request.form['Body']
+		if(maybeMurderer == murderer):
+			isM = right
+		else:
+			ism = wrong
+		result = roundDecision(maybeMurderer, isM, len(characters))
+		state += 1
+		
+	if(state == 14):
 		endResult = gameOver(outcome, rounds, len(suspects)-1)
 		handle_gameOver(endResult)
 		#would you like to play again? yes/no?
@@ -251,12 +249,10 @@ def handle_roundPtOne(killed, weapUsed, killLoc):
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
 
-def handle_roundPtTwo(result):
+def handle_roundPtTwo():
 	logger.debug(request.form)
-			
 	message = g.sms_client.messages.create(
-		#if Suspects array is too small, print different message as player has lost
-		body=result,
+		body='Sargeant: Got it Detective! Keep an eye on them while we solidy everything and prevent another attack.'
 		from_=yml_configs['twillio']['phone_number'],
 		to=request.form['From'])
     	#print(request.form['Body'])
