@@ -95,6 +95,8 @@ def handle_request():
 		weapUsed = weapons[keyClue]
 		killLoc = places[random.randint(0, 4)]
 		handle_roundPtOne(killed, weapUsed, killLoc)
+		state += 1
+	if(state == 3):
 		#add alibis here (might just text all alibis tbh)
 		#assign result of random generator to list with coresponding indexes
 		fullAlibis = []
@@ -173,7 +175,8 @@ def handle_request():
 				suspectsStr = suspectsStr + characters[i] + ', '
 				i += 1
 		who(suspectsStr)
-	if(state == 3):
+		state += 1
+	if(state == 4):
 		maybeMurderer = request.form['Body']
 		logger.debug('They picked ' + maybeMurderer)
 		logger.debug('Murderer is ' + murderer)
@@ -201,7 +204,7 @@ def handle_request():
 			outcome = 'win'
 			#handle_roundPtTwo(request.form['Body'])
 		state += 1
-	if(state == 4):
+	if(state == 5):
 		endResult = gameOver(outcome, rounds, len(suspects)-1)
 		handle_gameOver(endResult)
 		#would you like to play again? yes/no?
@@ -209,7 +212,7 @@ def handle_request():
 		if(playA == 'yes' | 'Yes'):
 			state = 1
 		else:
-			state = 5
+			state = 6
 			#end
 	if(state == 0):
 		state += 1
