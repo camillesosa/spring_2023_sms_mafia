@@ -142,14 +142,15 @@ def handle_request():
 		hit = 0
 		
 	if(state == 6):
-		scarAlibi = "Miss Scarlet: I was in the kitchen this time, I saw Col. Mustard in there too. Please hurry detective, I'm getting scared!"
-		handle_alibi(scarAlibi)
-		plumAlibi = "Professor Plum: I was with Mrs. Peacock in the gardens. Check with her if you don't believe me. And make it quick! I don't want to be next."
-		handle_alibi(plumAlibi)
-		peacAlibi = "Mrs. Peacock: My memory is poor, sorry, but I think I was in the gardens. Did I see Professor Plum? Well I know I was talking to a gentleman... Was it him? Oh I'm sorry, I just can't remember."
-		handle_alibi(peacAlibi)
-		mustAlibi = "Colonel Mustard: I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
-		handle_alibi(mustAlibi)
+		if(hit == 0):
+			scarAlibi = "Miss Scarlet: I was in the kitchen this time, I saw Col. Mustard in there too. Please hurry detective, I'm getting scared!"
+			handle_alibi(scarAlibi)
+			plumAlibi = "Professor Plum: I was with Mrs. Peacock in the gardens. Check with her if you don't believe me. And make it quick! I don't want to be next."
+			handle_alibi(plumAlibi)
+			peacAlibi = "Mrs. Peacock: My memory is poor, sorry, but I think I was in the gardens. Did I see Professor Plum? Well I know I was talking to a gentleman... Was it him? Oh I'm sorry, I just can't remember."
+			handle_alibi(peacAlibi)
+			mustAlibi = "Colonel Mustard: I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
+			handle_alibi(mustAlibi)
 		
 		who()
 		if(hit > 0):
@@ -177,12 +178,13 @@ def handle_request():
 		hit = 0
 		
 	if(state == 9):
-		scarAlibi = "Miss Scarlet: I can't believe Mrs. Peacock is dead... She was a nice lady... I think I was in the library with Professor Plum around that time. Please save us detective!"
-		handle_alibi(scarAlibi)
-		plumAlibi = "Professor Plum: That poor old lady... What? Oh, I was in the library. I don't remember seeing anyone else, but it is quite large."
-		handle_alibi(plumAlibi)
-		mustAlibi = "Colonel Mustard: You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
-		handle_alibi(mustAlibi)
+		if(hit == 0):
+			scarAlibi = "Miss Scarlet: I can't believe Mrs. Peacock is dead... She was a nice lady... I think I was in the library with Professor Plum around that time. Please save us detective!"
+			handle_alibi(scarAlibi)
+			plumAlibi = "Professor Plum: That poor old lady... What? Oh, I was in the library. I don't remember seeing anyone else, but it is quite large."
+			handle_alibi(plumAlibi)
+			mustAlibi = "Colonel Mustard: You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
+			handle_alibi(mustAlibi)
 		
 		who()
 		if(hit > 0):
@@ -210,10 +212,11 @@ def handle_request():
 		hit = 0
 		
 	if(state == 12):
-		scarAlibi = "Miss Scarlet: It wasn't me! Oh please believe me detective! Professor Plum must've done it!"
-		handle_alibi(scarAlibi)
-		plumAlibi = "Professor Plum: Arrest Miss Scarlet immediately! She's clearly the culprit!"
-		handle_alibi(plumAlibi)
+		if(hit == 0):
+			scarAlibi = "Miss Scarlet: It wasn't me! Oh please believe me detective! Professor Plum must've done it!"
+			handle_alibi(scarAlibi)
+			plumAlibi = "Professor Plum: Arrest Miss Scarlet immediately! She's clearly the culprit!"
+			handle_alibi(plumAlibi)
 		
 		who()
 		if(hit > 0):
