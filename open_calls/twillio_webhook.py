@@ -19,6 +19,7 @@ characters = ['Miss Scarlet', 'Professor Plum', 'Mrs. Peacock', 'Mr. Green', 'Co
 killed = 'Mrs. White'
 heardAll = 'f'
 isM = 'wrong'
+hit = 0
 
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
@@ -80,6 +81,7 @@ def handle_request():
 	global rounds
 	global killed
 	global isM
+	global hit
 	logger.debug(request.form)
 	#while(state != 5):
 	if(state == 0):
