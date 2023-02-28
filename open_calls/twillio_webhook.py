@@ -108,15 +108,15 @@ def handle_request():
 		hit = 0
 	if(state == 3):
 		if(hit == 0):
-			scarAlibi = "Miss Scarlet:	I'm not too sure... I think I was in the gardens at the time of the murder. Oh! Yes I was! I was in the gardens talking with the gardeners. You could ask them, but you already told them to leave, huh?"
+			scarAlibi = "Miss Scarlet:      I'm not too sure... I think I was in the gardens at the time of the murder. Oh! Yes I was! I was in the gardens talking with the gardeners. You could ask them, but you already told them to leave, huh?"
 			handle_alibi(scarAlibi)
-			plumAlibi = "Professor Plum:	I was in the study of course! Huh? Someone to back up my alibi... well I was alone so..."
+			plumAlibi = "Professor Plum:      I was in the study of course! Huh? Someone to back up my alibi... well I was alone so..."
 			handle_alibi(plumAlibi)
-			peacAlibi = "Mrs. Peacock:	I don't remember... I mean I could've been anywhere during that time! Why are you asking me anyways?! I'm obviously not the murderer!"
+			peacAlibi = "Mrs. Peacock:      I don't remember... I mean I could've been anywhere during that time! Why are you asking me anyways?! I'm obviously not the murderer!"
 			handle_alibi(peacAlibi)
-			greeAlibi = "Mr. Green:		I was in the garage I believe. I might've seen someone else come in, one of the girls for sure... Huh? No, I don't think they saw me."
+			greeAlibi = "Mr. Green:      I was in the garage I believe. I might've seen someone else come in, one of the girls for sure... Huh? No, I don't think they saw me."
 			handle_alibi(greeAlibi)
-			mustAlibi = "Colonel Mustard:	I decline to answer. I can't believe you're even asking me! You better find the murderer quick, he's probably dangerous!"
+			mustAlibi = "Colonel Mustard:      I decline to answer. I can't believe you're even asking me! You better find the murderer quick, he's probably dangerous!"
 			handle_alibi(mustAlibi)
 		
 			who()
