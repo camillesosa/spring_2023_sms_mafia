@@ -188,34 +188,35 @@ def handle_request():
 		suspectStr = printList(characters)
 		who(suspectsStr)
 		state += 1
-	if(state == 4 & heardAll == 't'):
-		maybeMurderer = request.form['Body']
-		logger.debug('They picked ' + maybeMurderer)
-		logger.debug('Murderer is ' + murderer)
-		if(maybeMurderer != murderer):
-			suspects.remove(maybeMurderer)
-			characters.remove(maybeMurderer)
-			if(len(suspects) == 0):
-				result = roundDecision(maybeMurderer, "wrong", len(suspects)-1)
+	if(state == 4):
+		if(heardAll == 't'):
+			maybeMurderer = request.form['Body']
+			logger.debug('They picked ' + maybeMurderer)
+			logger.debug('Murderer is ' + murderer)
+			if(maybeMurderer != murderer):
+				suspects.remove(maybeMurderer)
+				characters.remove(maybeMurderer)
+				if(len(suspects) == 0):
+					result = roundDecision(maybeMurderer, "wrong", len(suspects)-1)
+					handle_roundPtTwo(result)
+					rounds += 1
+					state = 3
+					outcome = 'lose'
+				if(len(suspects) > 0):
+					roundDecision(maybeMurderer, "wrong", len(suspects)-1)
+					handle_roundPtTwo(result)
+					rounds += 1
+					state = 1
+					killed = suspects[random.randint(0, len(suspects)-1)]
+					suspects.remove(killed)
+					characters.remove(killed)
+			else:
+				roundDecision(maybeMurderer, "right", len(suspects)-1)
 				handle_roundPtTwo(result)
-				rounds += 1
 				state = 3
-				outcome = 'lose'
-			if(len(suspects) > 0):
-				roundDecision(maybeMurderer, "wrong", len(suspects)-1)
-				handle_roundPtTwo(result)
-				rounds += 1
-				state = 1
-				killed = suspects[random.randint(0, len(suspects)-1)]
-				suspects.remove(killed)
-				characters.remove(killed)
-		else:
-			roundDecision(maybeMurderer, "right", len(suspects)-1)
-			handle_roundPtTwo(result)
-			state = 3
-			outcome = 'win'
-			#handle_roundPtTwo(request.form['Body'])
-		state += 1
+				outcome = 'win'
+				#handle_roundPtTwo(request.form['Body'])
+			state += 1
 	if(state == 5):
 		endResult = gameOver(outcome, rounds, len(suspects)-1)
 		handle_gameOver(endResult)
