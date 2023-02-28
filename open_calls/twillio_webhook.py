@@ -20,6 +20,8 @@ killed = 'Mrs. White'
 heardAll = 'f'
 isM = 'wrong'
 hit = 0
+outcome = ''
+name = ''
 
 with open('config.yml', 'r') as yml_file:
     yml_configs = yaml.safe_load(yml_file)
@@ -82,6 +84,8 @@ def handle_request():
 	global killed
 	global isM
 	global hit
+	global outcome
+	global name
 	logger.debug(request.form)
 	#while(state != 5):
 	if(state == 0):
@@ -165,6 +169,7 @@ def handle_request():
 	if(state == 7):
 		#result
 		maybeMurderer = request.form['Body']
+		handle_guessConfirm()
 		if(maybeMurderer == murderer):
 			isM = 'right'
 			state = 14
@@ -174,6 +179,7 @@ def handle_request():
 			rounds += 1
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
+		handle_roundPtTwo(result)
 		
 	if(state == 8):
 		killed = 'Mrs. Peacock'
@@ -201,6 +207,7 @@ def handle_request():
 	if(state == 10):
 		#result
 		maybeMurderer = request.form['Body']
+		handle_guessConfirm()
 		if(maybeMurderer == murderer):
 			isM = 'right'
 			state = 14
@@ -210,6 +217,7 @@ def handle_request():
 			rounds += 1
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
+		handle_roundPtTwo(result)
 		
 	if(state == 11):
 		killed = 'Colonel Mustard'
@@ -235,6 +243,7 @@ def handle_request():
 	if(state == 13):
 		#result
 		maybeMurderer = request.form['Body']
+		handle_guessConfirm()
 		if(maybeMurderer == murderer):
 			isM = 'right'
 			outcome = 'win'
@@ -243,6 +252,7 @@ def handle_request():
 			rounds += 1
 			outcome = 'lose'
 		result = roundDecision(maybeMurderer, isM, len(characters))
+		handle_roundPtTwo(result)
 		state += 1
 		
 	if(state == 14):
