@@ -50,7 +50,7 @@ def roundDecision(maybeMurderer, isM, susLeft):
 		val = 'Excellent job Detective! ' + maybeMurderer + ' was the murderer!'
 	return val
 
-def gameOver(outcome, rounds, saved, name, murderer):
+def gameOver(outcome, rounds, name, murderer):
 	if(outcome == 'win'):
 		if(rounds == 1):
 			val = 'It only took you 1 round to find the murderer and you saved everyone else involved! Outstanding work Detective ' + name + ', they better give you a raise!'
@@ -128,8 +128,10 @@ def handle_request():
 		if(maybeMurderer == murderer):
 			isM = 'right'
 			state = 14
+			outcome = 'win'
 		else:
 			ism = 'wrong'
+			rounds += 1
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		handle_roundPtTwo(result)
@@ -166,8 +168,10 @@ def handle_request():
 		if(maybeMurderer == murderer):
 			isM = 'right'
 			state = 14
+			outcome = 'win'
 		else:
 			ism = 'wrong'
+			rounds += 1
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		
@@ -200,8 +204,10 @@ def handle_request():
 		if(maybeMurderer == murderer):
 			isM = 'right'
 			state = 14
+			outcome = 'win'
 		else:
 			ism = 'wrong'
+			rounds += 1
 			state += 1
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		
@@ -231,20 +237,23 @@ def handle_request():
 		maybeMurderer = request.form['Body']
 		if(maybeMurderer == murderer):
 			isM = 'right'
+			outcome = 'win'
 		else:
 			ism = 'wrong'
+			rounds += 1
+			outcome = 'lose;
 		result = roundDecision(maybeMurderer, isM, len(characters))
 		state += 1
 		
 	if(state == 14):
-		endResult = gameOver(outcome, rounds, len(suspects)-1)
+		endResult = gameOver(outcome, rounds, name, murderer)
 		handle_gameOver(endResult)
 		#would you like to play again? yes/no?
-		playA = request.form['Body']
-		if(playA == 'yes' | 'Yes'):
-			state = 1
-		else:
-			state = 6
+		#playA = request.form['Body']
+		#if(playA == 'yes' | 'Yes'):
+		#	state = 1
+		#else:
+		#	state = 15
 			#end
 	if(state == 0):
 		state += 1
