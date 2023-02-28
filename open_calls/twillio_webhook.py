@@ -182,11 +182,12 @@ def handle_request():
 				handle_alibi(fullAlibis[heari])
 				heardFrom.remove(request.form['Body'])
 				heard = 't'
+				heardAll = 't'
 		
 		suspectStr = printList(characters)
 		who(suspectsStr)
 		state += 1
-	if(state == 4):
+	if(state == 4 & heardAll == 't'):
 		maybeMurderer = request.form['Body']
 		logger.debug('They picked ' + maybeMurderer)
 		logger.debug('Murderer is ' + murderer)
