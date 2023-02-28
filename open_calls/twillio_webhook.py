@@ -156,10 +156,10 @@ def handle_request():
 		while(i < len(characters)):
 			hearFrom = request.form['Body']
 			heari = characters.index(hearFrom)
-			heard = false
-			while(heard != true):
+			heard = 'f'
+			if(heard != 't'):
 				handle_alibi(fullAlibis[heari])
-			heard = true
+			heard = 't'
 			i += 1
 		
 		suspectsStr = ''
