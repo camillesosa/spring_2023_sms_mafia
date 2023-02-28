@@ -111,8 +111,11 @@ def handle_request():
 		mustAlibi = "Colonel Mustard: I decline to answer. I can't believe you're even asking me! You better find the murderer quick, he's probably dangerous!"
 		handle_alibi(mustAlibi)
 		
+		hit = 'no'
 		who()
-		state += 1
+		if(hit == 'now'):
+			state += 1
+		hit = 'now'
 		
 	if(state == 4):
 		#result
@@ -144,8 +147,11 @@ def handle_request():
 		mustAlibi = "Colonel Mustard: I was in the library, honest! I know I was being difficult before, but now I just want this guy caught. No, I was by myself."
 		handle_alibi(mustAlibi)
 		
+		hit = 'no'
 		who()
-		state += 1
+		if(hit == 'now'):
+			state += 1
+		hit = 'now'
 		
 	if(state == 7):
 		#result
@@ -174,8 +180,11 @@ def handle_request():
 		mustAlibi = "Colonel Mustard: You are doing a terrible job! Let me make it easier for you, it's not me. I was in the study."
 		handle_alibi(mustAlibi)
 		
+		hit = 'no'
 		who()
-		state += 1
+		if(hit == 'now'):
+			state += 1
+		hit = 'now'
 		
 	if(state == 10):
 		#result
@@ -202,8 +211,11 @@ def handle_request():
 		plumAlibi = "Professor Plum: Arrest Miss Scarlet immediately! She's clearly the culprit!"
 		handle_alibi(plumAlibi)
 		
+		hit = 'no'
 		who()
-		state += 1
+		if(hit == 'now'):
+			state += 1
+		hit = 'now'
 		
 	if(state == 13):
 		#result
